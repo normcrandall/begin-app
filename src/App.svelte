@@ -1,20 +1,12 @@
 <script>
-  import Tailwindcss from "./Tailwind.svelte";
-  import { onMount } from "svelte";
-  export let name;
-  export let message;
+  import Tailwindcss from "./Tailwindcss.svelte";
 
-  onMount(async () => {
-    let data = await (await fetch("/api")).json();
-    message = data.msg;
-    console.log("MESSAGE: ", message);
-  });
+  export let name;
 </script>
 
-<main class="bg-green-500">
-  <h1 class="">Test 5 {name}!</h1>
-  <h2>{message}</h2>
-  <h3>Change me d!</h3>
+<Tailwindcss />
+<main>
+  <h1 class="bg-green-400 text-2xl text-center">Hello {name}!</h1>
   <p>
     Visit the
     <a href="https://svelte.dev/tutorial">Svelte tutorial</a>
