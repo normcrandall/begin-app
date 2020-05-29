@@ -1,5 +1,9 @@
 <script>
   import { defaultCalendarEvent as calendarEvent } from "../store/calende-event";
+  const hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const minutes = ["00", "15", "30", "45"];
+  const ampm = ["AM", " PM"];
+  let startTime;
 </script>
 
 <form class="w-full max-w-lg">
@@ -12,9 +16,7 @@
         Title
       </label>
       <input
-        class="appearance-none block w-full bg-gray-200 text-gray-700 rounded
-        py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-        id="grid-first-name"
+        class="calInput"
         type="text"
         placeholder="Title for you event"
         bind:value={calendarEvent.title}
@@ -29,13 +31,37 @@
         Description
       </label>
       <input
-        class="appearance-none block w-full bg-gray-200 text-gray-700 border
-        border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none
-        focus:bg-white focus:border-gray-500"
+        class="calInput"
         id="grid-last-name"
         type="text"
         bind:value={calendarEvent.description}
         placeholder="Description for your event" />
+      <div class="mt-2 p-5 w-40 bg-white rounded-lg shadow-xl">
+        <div class="flex">
+          <select
+            name="hours"
+            class="bg-transparent text-xl appearance-none outline-none">
+            {#each hours as hour}
+              <option value={hour}>{hour}</option>
+            {/each}
+          </select>
+          <span class="text-xl mr-3">:</span>
+          <select
+            name="minutes"
+            class="bg-transparent text-xl appearance-none outline-none mr-4">
+            {#each minutes as minute}
+              <option value={minute}>{minute}</option>
+            {/each}
+          </select>
+          <select
+            name="ampm"
+            class="bg-transparent text-xl appearance-none outline-none">
+            {#each ampm as value}
+              <option {value}>{value}</option>
+            {/each}
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 
