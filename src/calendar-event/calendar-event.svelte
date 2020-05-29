@@ -36,11 +36,11 @@
         type="text"
         bind:value={calendarEvent.description}
         placeholder="Description for your event" />
-      <div class="mt-2 p-5 w-40 bg-white rounded-lg shadow-xl">
+      <div class="mt-2 p-5 w-40 bg-white rounded-lg">
         <div class="flex">
           <select
             name="hours"
-            class="bg-transparent text-xl appearance-none outline-none">
+            class="bg-transparent text-xl appearance-none outline-none border-0">
             {#each hours as hour}
               <option value={hour}>{hour}</option>
             {/each}
@@ -48,14 +48,15 @@
           <span class="text-xl mr-3">:</span>
           <select
             name="minutes"
-            class="bg-transparent text-xl appearance-none outline-none mr-4">
+            class="bg-transparent text-xl appearance-none outline-none mr-4
+            border-0">
             {#each minutes as minute}
               <option value={minute}>{minute}</option>
             {/each}
           </select>
           <select
             name="ampm"
-            class="bg-transparent text-xl appearance-none outline-none">
+            class="bg-transparent text-xl appearance-none outline-none border-0">
             {#each ampm as value}
               <option {value}>{value}</option>
             {/each}
