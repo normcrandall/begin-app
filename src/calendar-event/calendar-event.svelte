@@ -1,19 +1,59 @@
 <script lang="typescript">
-  import { defaultCalendarEvent as calendarEvent } from "../store/calende-event";
-  import Button from "../buttons/small-fab.svelte";
-  import Modal from "../modal/modal.svelte";
-  import Text from "../inputs/text.svelte";
-
+  import { onMount } from "svelte";
+  import { defaultCalendarEvent } from "../store/calende-event";
+  import { addEvent as updateEvents } from "../store/calendar-events";
+  import Button from "../components/buttons/small-fab.svelte";
+  import Modal from "../components/modal/modal.svelte";
+  import Text from "../components/inputs/text.svelte";
+  import OutlineButton from "../components/buttons/outline-button.svelte";
+  import DatePicker from "../components/datepicker/Datepicker.svelte";
   const hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const minutes = ["00", "15", "30", "45"];
-  const ampm = ["AM", " PM"];
-  let showModal = false;
+  const ampm = ["AM", "PM"];
+
+  export let startDate: any;
+  export let endDate: any;
+  export let showModal: boolean = false;
+  export let modalClosed: () => void;
   let startTime;
+  let endTime;
+  let calendarEvent = { ...defaultCalendarEvent };
+
+  let formattedEndDate: string;
+  let formattedStartDate: string;
+
   const setShowModal = () => {
+    startDate = new Date();
+    endDate = new Date();
     showModal = true;
   };
   const onClose = () => {
     showModal = false;
+    modalClosed();
+  };
+  const saveEvent = () => {
+    updateEvents(calendarEvent);
+    calendarEvent = { ...defaultCalendarEvent };
+    showModal = false;
+    modalClosed();
+  };
+  $: calendarEvent.startDate = startDate;
+  $: calendarEvent.endDate = endDate;
+
+  $: formattedStartDate = Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(calendarEvent.startDate);
+
+  $: formattedEndDate = Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(calendarEvent.endDate);
+
+  const titleChanged = (event) => {
+    calendarEvent.title = event.target.value;
   };
 </script>
 
@@ -26,9 +66,9 @@
           label="Title"
           classes="calInput"
           value={calendarEvent.title}
+          onChange={titleChanged}
           id="calTitle"
           placeholder="Title" />
-
       </div>
       <div class="w-full md:w-1/2 mb-6 md:mb-0">
         <Text
@@ -39,37 +79,43 @@
           placeholder="Description" />
       </div>
 
-      <div class="flex w-full items-start">
+      <div class="flex w-full">
         <div>
           <label
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold
             mb-2">
-            Start Time
+            Start Date/Time
           </label>
-          <div class="border-2 border-gray-300 calInput mr-4 px-3 w-40 mr-4">
+          <div class="border-gray-300 flex mr-4">
+            <DatePicker bind:selected={calendarEvent.startDate}>
+              <div>
+                <div class="calInput mr-4" tabindex={0}>
+                  {formattedStartDate}
+                </div>
+                <div />
 
-            <div class="flex">
+              </div>
+            </DatePicker>
+            <div class="flex ml-4 calInput">
               <select
                 name="hours"
-                class="bg-transparent text-xl appearance-none outline-none
-                border-0">
+                class="bg-transparent appearance-none hover:bg-gray-100 border-0">
                 {#each hours as hour}
                   <option value={hour}>{hour}</option>
                 {/each}
               </select>
-              <span class="text-xl mr-3">:</span>
+              <span class="mr-3">:</span>
               <select
                 name="minutes"
-                class="bg-transparent text-xl appearance-none outline-none mr-4
-                border-0">
+                class="bg-transparent appearance-none hover:bg-gray-100 border-0
+                mr-4">
                 {#each minutes as minute}
                   <option value={minute}>{minute}</option>
                 {/each}
               </select>
               <select
                 name="ampm"
-                class="bg-transparent text-xl appearance-none outline-none
-                border-0">
+                class="bg-transparent appearance-none hover:bg-gray-100 border-0">
                 {#each ampm as value}
                   <option {value}>{value}</option>
                 {/each}
@@ -78,48 +124,63 @@
 
           </div>
         </div>
+
+      </div>
+      <div class="flex w-full">
         <div>
           <label
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold
             mb-2">
-            End Time
+            End Date/Time
           </label>
-          <div class="border-2 border-gray-300 calInput mr-4 px-3 w-40 mr-4">
+          <div class="border-gray-300 flex mr-4">
+            <DatePicker bind:selected={calendarEvent.endDate}>
+              <div>
+                <div class="calInput mr-4" tabindex={0}>{formattedEndDate}</div>
+                <div />
 
-            <div class="flex">
+              </div>
+            </DatePicker>
+            <div class="flex ml-4 calInput">
               <select
                 name="hours"
-                class="bg-transparent text-xl appearance-none outline-none
-                border-0">
+                class="bg-transparent appearance-none hover:bg-gray-100 border-0">
                 {#each hours as hour}
                   <option value={hour}>{hour}</option>
                 {/each}
               </select>
-              <span class="text-xl mr-3">:</span>
+              <span class="mr-3">:</span>
               <select
                 name="minutes"
-                class="bg-transparent text-xl appearance-none outline-none mr-4
-                border-0">
+                class="bg-transparent appearance-none hover:bg-gray-100 border-0
+                mr-4">
                 {#each minutes as minute}
                   <option value={minute}>{minute}</option>
                 {/each}
               </select>
               <select
                 name="ampm"
-                class="bg-transparent text-xl appearance-none outline-none
-                border-0">
+                class="bg-transparent appearance-none hover:bg-gray-100 border-0">
                 {#each ampm as value}
                   <option {value}>{value}</option>
                 {/each}
               </select>
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
 
-    <div slot="actions">
-      <button>Ok</button>
+    <div slot="actions" class="w-full flex justify-end">
+      <OutlineButton
+        label="Cancel"
+        onClick={onClose}
+        color="red"
+        classes="mr-4" />
+      <OutlineButton label="Save" onClick={saveEvent} color="blue" />
+
     </div>
 
   </Modal>

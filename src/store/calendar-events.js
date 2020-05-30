@@ -1,20 +1,21 @@
-import { writeable } from "svelte/store";
+import { writable } from "svelte/store";
 
-let calendarEvents = [];
-
-const { subscribe, set, update } = writeable(calendarEvents);
+const calendarEvents = writable([]);
 
 const reset = () => {
   set([]);
 };
 
-const update = (calendarEvent) =>
-  update((calendarEvent) => {
-    return [...calendarEvents, calendarEvents];
+const addEvent = (calendarEvent) =>
+  calendarEvents.update((events) => {
+    console.log("calendarEvents", events);
+    return [...events, calendarEvent];
   });
 
 const fill = (calendarEvents) => {
   set(calendarEvents);
 };
 
-export { subscribe, reset, update, fill };
+const subscribe = calendarEvents.subscribe;
+
+export { subscribe, reset, addEvent, fill };
