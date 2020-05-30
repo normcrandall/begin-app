@@ -1,68 +1,139 @@
-<script>
+<script lang="typescript">
   import { defaultCalendarEvent as calendarEvent } from "../store/calende-event";
+  import Button from "../buttons/small-fab.svelte";
+  import Modal from "../modal/modal.svelte";
+  import Text from "../inputs/text.svelte";
+
   const hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const minutes = ["00", "15", "30", "45"];
   const ampm = ["AM", " PM"];
+  let showModal = false;
   let startTime;
+  const setShowModal = () => {
+    showModal = true;
+  };
+  const onClose = () => {
+    showModal = false;
+  };
 </script>
 
-<form class="w-full max-w-lg">
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label
-        class="block uppercase tracking-wide text-gray-700 text-xs font-bold
-        mb-2"
-        for="grid-first-name">
-        Title
-      </label>
-      <input
-        class="calInput"
-        type="text"
-        placeholder="Title for you event"
-        bind:value={calendarEvent.title}
-        required />
+{#if showModal}
+  <Modal title="Add New Event" {onClose}>
 
-    </div>
-    <div class="w-full md:w-1/2 px-3">
-      <label
-        class="block uppercase tracking-wide text-gray-700 text-xs font-bold
-        mb-2"
-        for="grid-last-name">
-        Description
-      </label>
-      <input
-        class="calInput"
-        id="grid-last-name"
-        type="text"
-        bind:value={calendarEvent.description}
-        placeholder="Description for your event" />
-      <div class="mt-2 p-5 w-40 bg-white rounded-lg shadow-xl">
-        <div class="flex">
-          <select
-            name="hours"
-            class="bg-transparent text-xl appearance-none outline-none">
-            {#each hours as hour}
-              <option value={hour}>{hour}</option>
-            {/each}
-          </select>
-          <span class="text-xl mr-3">:</span>
-          <select
-            name="minutes"
-            class="bg-transparent text-xl appearance-none outline-none mr-4">
-            {#each minutes as minute}
-              <option value={minute}>{minute}</option>
-            {/each}
-          </select>
-          <select
-            name="ampm"
-            class="bg-transparent text-xl appearance-none outline-none">
-            {#each ampm as value}
-              <option {value}>{value}</option>
-            {/each}
-          </select>
+    <div slot="body">
+      <div class="w-full md:w-1/2 mb-6 md:mb-0">
+        <Text
+          label="Title"
+          classes="calInput"
+          value={calendarEvent.title}
+          id="calTitle"
+          placeholder="Title" />
+
+      </div>
+      <div class="w-full md:w-1/2 mb-6 md:mb-0">
+        <Text
+          label="description"
+          classes="calInput"
+          value={calendarEvent.description}
+          id="calDescription"
+          placeholder="Description" />
+      </div>
+
+      <div class="flex w-full items-start">
+        <div>
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold
+            mb-2">
+            Start Time
+          </label>
+          <div class="border-2 border-gray-300 calInput mr-4 px-3 w-40 mr-4">
+
+            <div class="flex">
+              <select
+                name="hours"
+                class="bg-transparent text-xl appearance-none outline-none
+                border-0">
+                {#each hours as hour}
+                  <option value={hour}>{hour}</option>
+                {/each}
+              </select>
+              <span class="text-xl mr-3">:</span>
+              <select
+                name="minutes"
+                class="bg-transparent text-xl appearance-none outline-none mr-4
+                border-0">
+                {#each minutes as minute}
+                  <option value={minute}>{minute}</option>
+                {/each}
+              </select>
+              <select
+                name="ampm"
+                class="bg-transparent text-xl appearance-none outline-none
+                border-0">
+                {#each ampm as value}
+                  <option {value}>{value}</option>
+                {/each}
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div>
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold
+            mb-2">
+            End Time
+          </label>
+          <div class="border-2 border-gray-300 calInput mr-4 px-3 w-40 mr-4">
+
+            <div class="flex">
+              <select
+                name="hours"
+                class="bg-transparent text-xl appearance-none outline-none
+                border-0">
+                {#each hours as hour}
+                  <option value={hour}>{hour}</option>
+                {/each}
+              </select>
+              <span class="text-xl mr-3">:</span>
+              <select
+                name="minutes"
+                class="bg-transparent text-xl appearance-none outline-none mr-4
+                border-0">
+                {#each minutes as minute}
+                  <option value={minute}>{minute}</option>
+                {/each}
+              </select>
+              <select
+                name="ampm"
+                class="bg-transparent text-xl appearance-none outline-none
+                border-0">
+                {#each ampm as value}
+                  <option {value}>{value}</option>
+                {/each}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div slot="actions">
+      <button>Ok</button>
+    </div>
+
+  </Modal>
+{/if}
+<form class="w-full max-w-lg">
+  <div class="flex flex-wrap -mx-3 mb-6">
+
+    <Button
+      type="button"
+      size="small"
+      color="blue"
+      classes="fixed bottom-0 right-0 mb-10 mr-10 z-10"
+      title="Add Event"
+      onClick={setShowModal} />
   </div>
 
 </form>

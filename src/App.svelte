@@ -5,7 +5,7 @@
   import interactionPlugin from "@fullcalendar/interaction";
   import { onMount } from "svelte";
   import CalendarEvent from "./calendar-event/calendar-event.svelte";
-  import "~@fullcalendar/core/main.min.css";
+
   let calendarDiv;
 
   onMount(() => {

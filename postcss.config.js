@@ -12,6 +12,6 @@ const production = !process.env.ROLLUP_WATCH;
 module.exports = {
   plugins: [
     require("tailwindcss"),
-    ...(production ? [purgecss, autopreixer] : [autoprefixer]),
+    ...(production ? [purgecss, autoprefixer] : [autoprefixer]),
   ],
 };
