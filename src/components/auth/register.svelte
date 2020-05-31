@@ -1,36 +1,34 @@
-<script>
+<script lang="typescript">
   import { auth, provider } from "../../helpers/firebase.js";
   import { navigate } from "svelte-routing";
   import { user } from "../../store/user.js";
 
-  const handleGoogleLogin = () => {
-    auth
-      .signInWithPopup(provider)
-      .then(function (result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var firebaseuser = result.user;
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await auth().signInWithPopup(provider);
 
-        if (firebaseuser) {
-          let { email } = firebaseuser;
-          console.log("first", $user);
-          user.set({ ...$user, loggedIn: true, email });
-          console.log("then", $user);
-          navigate("/dashboard");
-        }
-        // ...
-      })
-      .catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var firebaseuser = result.user;
+
+      if (firebaseuser) {
+        let { email } = firebaseuser;
+        console.log("first", $user);
+        user.set({ ...$user, loggedIn: true, email });
+        console.log("then", $user);
+        navigate("/calendar");
+      }
+    } catch (error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      const credential: string = error.credential;
+      // ...
+    }
   };
 
   // Destructuring to obtain email and password from form via Event

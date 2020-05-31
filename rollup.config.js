@@ -9,7 +9,7 @@ import autoPreprocess from "svelte-preprocess";
 import { config } from "dotenv";
 import replace from "@rollup/plugin-replace";
 
-console.log(process.env);
+const proc = config().parsed;
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -28,8 +28,12 @@ export default {
       processess: JSON.stringify({
         env: {
           isProd: production,
-          FIREBASECLIENT: process.env.FIREBASECLIENT,
-          FIREBASEAPI: process.env.FIREBASEAPI,
+          FIREBASECLIENT: process.env.FIREBASECLIENT
+            ? process.env.FIREBASECLIENT
+            : proc.env.FIREBASECLIENT,
+          FIREBASEAPI: process.env.FIREBASEAPI
+            ? process.env.FIREBASEAPI
+            : proc.env.FIREBASEAPI,
         },
       }),
     }),
@@ -58,7 +62,6 @@ export default {
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
-    !production && serve(),
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production

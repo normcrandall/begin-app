@@ -2,14 +2,21 @@
   import Tailwindcss from "./Tailwindcss.svelte";
   import { user } from "./store/user";
   import { auth } from "./helpers/firebase.js";
-  import { Router, Link, Route } from "svelte-navigator";
+  import { Router, Link, Route, navigate } from "svelte-routing";
   import Calendar from "./pages/calendar.svelte";
   import Login from "./components/auth/login.svelte";
   import Register from "./components/auth/register.svelte";
-  let currentUser;
-  //const currentUser: any = auth().currentUser;
+  import { client } from "./data/index";
 
-  export let url = "";
+  const users: any = auth().currentUser;
+  console.log("users", users);
+  if (users !== null) {
+    user.update(() => ({ loggedIn: true, userId: users[0].id }));
+
+    navigate("/calendar");
+  } else {
+    navigate("/login");
+  }
 </script>
 
 <Tailwindcss />

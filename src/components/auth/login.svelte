@@ -3,7 +3,7 @@
   import { navigate } from "svelte-routing";
   import { user } from "../../store/user.js";
   import OutlineButton from "../buttons/outline-button.svelte";
-  import { useNavigate } from "svelte-navigator";
+
   let email = "";
   let password = "";
 
@@ -21,7 +21,6 @@
           console.log("Google first", $user);
           user.set({ ...$user, loggedIn: true, email });
           console.log("Google then", $user);
-          navigate("/dashboard");
         }
         // ...
       })
@@ -49,6 +48,7 @@
         console.log("first", $user);
         user.set({ ...$user, loggedIn: true, email });
         console.log("then", $user);
+
         navigate("/calendar");
       }
     } catch (error) {
@@ -56,7 +56,6 @@
     }
   };
   const handleRegister = () => {
-    const navigate = useNavigate();
     navigate("/register");
   };
 </script>
