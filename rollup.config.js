@@ -9,7 +9,7 @@ import autoPreprocess from "svelte-preprocess";
 import { config } from "dotenv";
 import replace from "@rollup/plugin-replace";
 
-console.log(process);
+console.log(process.env);
 
 const production = !process.env.ROLLUP_WATCH;
 
