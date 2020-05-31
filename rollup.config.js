@@ -6,6 +6,12 @@ import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
 import css from "rollup-plugin-css-only";
 import autoPreprocess from "svelte-preprocess";
+import { config } from "dotenv";
+import replace from "@rollup/plugin-replace";
+
+const processes = config().parsed;
+
+console.log(processes);
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -19,6 +25,15 @@ export default {
   },
   plugins: [
     css({ output: "public/build/extra.css" }),
+    replace({
+      // stringify the object
+      processes: JSON.stringify({
+        env: {
+          isProd: production,
+          ...config().parsed, // attached the .env config
+        },
+      }),
+    }),
     svelte({
       preprocess: autoPreprocess({ postcss: true }),
       // preprocess: sveltePreprocess({ postcss: true }),
@@ -67,10 +82,14 @@ function serve() {
       if (!started) {
         started = true;
 
-        require("child_process").spawn("npm", ["run", "start", "--", "--dev"], {
-          stdio: ["ignore", "inherit", "inherit"],
-          shell: true,
-        });
+        require("child_process").spawn(
+          "npm",
+          ["run", "start", "--", "--dev", "--single"],
+          {
+            stdio: ["ignore", "inherit", "inherit"],
+            shell: true,
+          }
+        );
       }
     },
   };

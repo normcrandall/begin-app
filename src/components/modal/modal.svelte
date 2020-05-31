@@ -6,7 +6,7 @@
 <div
   class="flex items-center justify-center fixed left-0 bottom-0 w-full h-full
   bg-opacity-50 bg-gray-800 z-10">
-  <div class="bg-white rounded-lg w-1/2">
+  <div class="bg-white rounded-lg sm:w-full md:w-1/2 w-1/2">
     <div class="flex flex-col items-start">
       <div class="flex items-center w-full border-b-2 border-gray-200 p-4">
         <div class="text-gray-900 font-medium text-lg">{title}</div>
