@@ -4,7 +4,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public"
+    "start": "sirv public",
+    "start:sandbox": "cross-env NODE_ENV=testing ARC_LOCAL=1 npx sandbox"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.2.0",
@@ -28,10 +29,12 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@architect/sandbox": "^1.12.0",
     "@fullcalendar/core": "^4.4.2",
     "@fullcalendar/daygrid": "^4.4.2",
     "@fullcalendar/interaction": "^4.4.2",
     "classnames": "^2.2.6",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "firebase": "^7.14.6",
     "sirv-cli": "^0.4.4",

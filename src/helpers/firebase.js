@@ -2,9 +2,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 
 var firebaseConfig = {
-  apiKey: processes.env.FIREBASEAPI,
+  apiKey: processess.env.FIREBASEAPI,
   authDomain: "journeytomaketime.firebaseapp.com",
-  webClientId: processes.env.FIREBASECLIENT,
+  webClientId: processess.env.FIREBASECLIENT,
   projectId: "journeytomaketime",
 };
 

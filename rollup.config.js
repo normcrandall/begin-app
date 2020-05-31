@@ -9,9 +9,7 @@ import autoPreprocess from "svelte-preprocess";
 import { config } from "dotenv";
 import replace from "@rollup/plugin-replace";
 
-const processes = config().parsed;
-
-console.log(processes);
+console.log(process);
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -27,10 +25,11 @@ export default {
     css({ output: "public/build/extra.css" }),
     replace({
       // stringify the object
-      processes: JSON.stringify({
+      processess: JSON.stringify({
         env: {
           isProd: production,
-          ...config().parsed, // attached the .env config
+          FIREBASECLIENT: process.env.FIREBASECLIENT,
+          FIREBASEAPI: process.env.FIREBASEAPI,
         },
       }),
     }),
@@ -82,14 +81,10 @@ function serve() {
       if (!started) {
         started = true;
 
-        require("child_process").spawn(
-          "npm",
-          ["run", "start", "--", "--dev", "--single"],
-          {
-            stdio: ["ignore", "inherit", "inherit"],
-            shell: true,
-          }
-        );
+        require("child_process").spawn("npm", ["run", "start:sandbox"], {
+          stdio: ["ignore", "inherit", "inherit"],
+          shell: true,
+        });
       }
     },
   };
