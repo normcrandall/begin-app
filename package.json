@@ -5,7 +5,7 @@
     "build": "rollup -c",
     "autobuild": "rollup -c -w",
     "dev": "run-p start autobuild",
-    "lint": "eslint src --ignore-pattern node_modules --fix",
+    "lint": "",
     "start": "run-s build",
     "sandbox2": "npm run sandbox",
     "start:sandbox": "cross-env NODE_ENV=testing ARC_LOCAL=1 npx sandbox",
