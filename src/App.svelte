@@ -7,16 +7,16 @@
   import Login from "./components/auth/login.svelte";
   import Register from "./components/auth/register.svelte";
   import { client } from "./data/index";
-
-  const users: any = auth().currentUser;
-  console.log("users", users);
-  if (users !== null) {
-    user.update(() => ({ loggedIn: true, userId: users[0].id }));
-
-    navigate("/calendar");
-  } else {
-    navigate("/login");
-  }
+  auth().onAuthStateChanged((loggedInUser) => {
+    if (loggedInUser) {
+      const { uid } = loggedInUser;
+      console.log("loggedIn", loggedInUser);
+      user.set({ loggedIn: true, userId: uid, calendars: [] });
+      navigate("/calendar");
+    } else {
+      navigate("/login");
+    }
+  });
 </script>
 
 <Tailwindcss />

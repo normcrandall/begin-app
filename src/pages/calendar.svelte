@@ -1,10 +1,16 @@
 <script type="typescript">
+  import { client } from "../data";
+  import { query, mutate } from "svelte-apollo";
   import { Calendar } from "@fullcalendar/core";
   import dayGridPlugin from "@fullcalendar/daygrid";
   import interactionPlugin from "@fullcalendar/interaction";
   import { onMount } from "svelte";
-  import CalendarEvent from "../calendar-event/calendar-event.svelte";
-  import { subscribe } from "../store/calendar-events";
+  import CalendarEvent from "../components/calendar-event/calendar-event.svelte";
+  import { calendarEvents as eventsStore } from "../store/calendar-events";
+  import { user } from "../store/user";
+  import { get } from "svelte/store";
+
+  import { getCalendars } from "../data/queries";
 
   let showModal: boolean = false;
   let startDate: Date;
@@ -12,8 +18,8 @@
   let calendarEvents: any[];
   let calendar: any;
   let calendarDiv: any;
-  subscribe((events) => {
-    console.log(events);
+
+  eventsStore.subscribe((events) => {
     calendarEvents = events?.map((event, index) => ({
       id: index,
       title: event.title,
@@ -23,7 +29,6 @@
 
     if (calendarDiv) {
       calendar.removeAllEventSources();
-
       calendar.addEventSource(calendarEvents);
     }
   });
@@ -31,7 +36,22 @@
   const modalClosed = () => {
     showModal = false;
   };
+  console.log(get(user));
 
+  user.subscribe(async (value) => {
+    const { userId } = value;
+    const { data } = await client.query<{ calendarQuery: any[] }>({
+      query: getCalendars,
+      variables: {
+        where: { userId: { _eq: userId } },
+      },
+    });
+    if (data) {
+      const { calendarQuery } = data;
+      if (!calendarQuery || calendarQuery.length === 0) {
+      }
+    }
+  });
   onMount(() => {
     calendar = new Calendar(calendarDiv, {
       plugins: [dayGridPlugin, interactionPlugin],

@@ -8,5 +8,5 @@ export const client = new ApolloClient({
       },
     });
   },
-  uri: processess.env.HASURAURL,
+  uri: "http://159.65.41.5/v1/graphql",
 });

@@ -1,7 +1,10 @@
-<script lang="typescript">
+<script>
   import { auth, provider } from "../../helpers/firebase.js";
   import { navigate } from "svelte-routing";
   import { user } from "../../store/user.js";
+  import { client } from "../../data/index.js";
+  import { createUser } from "../../data/mutations/index";
+  import { mutate } from "svelte-apollo";
 
   const handleGoogleLogin = async () => {
     try {
@@ -13,9 +16,9 @@
       var firebaseuser = result.user;
 
       if (firebaseuser) {
-        let { email } = firebaseuser;
+        let { email, uid } = firebaseuser;
         console.log("first", $user);
-        user.set({ ...$user, loggedIn: true, email });
+        user.set({ ...$user, loggedIn: true, userId: uid });
         console.log("then", $user);
         navigate("/calendar");
       }
@@ -26,28 +29,34 @@
       // The email of the user's account used.
       const email = error.email;
       // The firebase.auth.AuthCredential type that was used.
-      const credential: string = error.credential;
+      const credential = error.credential;
       // ...
     }
   };
 
   // Destructuring to obtain email and password from form via Event
-  const handleRegisterForm = ({
+  const handleRegisterForm = async ({
     target: {
       elements: { email, password },
     },
   }) => {
-    auth
-      .createUserWithEmailAndPassword(email.value, password.value)
-      .catch((error) => alert(error.message));
-    let firebaseUser = auth.currentUser;
+    try {
+      await auth().createUserWithEmailAndPassword(email.value, password.value);
+    } catch (error) {
+      console.log(error);
+    }
+    let firebaseUser = auth().currentUser;
 
     if (firebaseUser) {
-      let { email } = firebaseUser;
-      console.log("first", $user);
-      user.set({ ...$user, loggedIn: true, email });
-      console.log("then", $user);
-      navigate("/dashboard");
+      let { email, uid } = firebaseUser;
+      console.log(firebaseUser);
+
+      user.set({ ...$user, loggedIn: true, userId: firebaseUser.id });
+      await mutate(client, {
+        mutation: createUser,
+        variables: { objects: { emailAddress: email, id: uid } },
+      });
+      navigate("/calendar");
     }
   };
 </script>

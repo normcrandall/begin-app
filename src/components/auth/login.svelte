@@ -1,7 +1,7 @@
 <script lang="typescript">
   import { auth, provider } from "../../helpers/firebase.js";
   import { navigate } from "svelte-routing";
-  import { user } from "../../store/user.js";
+  import { user } from "../../store/user";
   import OutlineButton from "../buttons/outline-button.svelte";
 
   let email = "";
@@ -17,9 +17,9 @@
         var firebaseuser = result.user;
 
         if (firebaseuser) {
-          let { email } = firebaseuser;
+          let { email, uid } = firebaseuser;
           console.log("Google first", $user);
-          user.set({ ...$user, loggedIn: true, email });
+          user.set({ ...$user, loggedIn: true, userId: uid });
           console.log("Google then", $user);
         }
         // ...
@@ -39,14 +39,16 @@
   // Destructuring to obtain email and password from form via Event
   const handleLoginForm = async () => {
     try {
+      await auth().setPersistence("local");
+
       const result = await auth().signInWithEmailAndPassword(email, password);
 
       let firebaseUser = auth().currentUser;
 
       if (firebaseUser) {
-        let { email } = firebaseUser;
+        let { email, uid } = firebaseUser;
         console.log("first", $user);
-        user.set({ ...$user, loggedIn: true, email });
+        user.set({ ...$user, loggedIn: true, userId: uid });
         console.log("then", $user);
 
         navigate("/calendar");

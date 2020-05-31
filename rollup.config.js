@@ -34,6 +34,7 @@ export default {
           FIREBASEAPI: process.env.FIREBASEAPI
             ? process.env.FIREBASEAPI
             : proc.env.FIREBASEAPI,
+          HASURA: process.env.HASURA ? process.env.HASURA : proc.env.HASURA,
         },
       }),
     }),
