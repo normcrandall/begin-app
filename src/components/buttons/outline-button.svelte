@@ -1,11 +1,11 @@
 <script lang="typescript">
   import classNames from "classnames";
-  export let color: "red" | "blue" | "green";
-  export let disabled: boolean;
-  export let onClick: () => void;
-  export let classes: string | undefined;
-  export let type: "button" | "submit";
-  export let label: string;
+  export let color: "red" | "blue" | "green" = "blue";
+  export let disabled: boolean = false;
+  export let onClick: () => void = () => {};
+  export let classes: string | undefined = "";
+  export let type: "button" | "submit" = "button";
+  export let label: string = "";
   const buttonClass = classNames({
     "bg-transparent font-semibold hover:text-white py-2 px-4 border border-blue hover:border-transparent rounded": true,
 

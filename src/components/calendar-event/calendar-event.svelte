@@ -15,6 +15,7 @@
   export let endDate: any;
   export let showModal: boolean = false;
   export let modalClosed: () => void;
+  export let editEvent: any = null;
   let startTime;
   let endTime;
   let startHour;
@@ -23,15 +24,21 @@
   let endHour;
   let endMinute;
   let endAmPm;
+  let title;
+  let description;
   let calendarEvent = { ...defaultCalendarEvent };
-
+  const getHours = (hours) => {
+    return hours > 12 ? 12 - hours : hours;
+  };
   let formattedEndDate: string;
   let formattedStartDate: string;
 
   const setShowModal = () => {
-    startDate = new Date();
-    endDate = new Date();
-    showModal = true;
+    {
+      startDate = new Date();
+      endDate = new Date();
+      showModal = true;
+    }
   };
   const onClose = () => {
     showModal = false;
@@ -68,23 +75,62 @@
     showModal = false;
     modalClosed();
   };
+  $: if (editEvent) {
+    calendarEvent.title = editEvent.title;
+    calendarEvent.startDate = editEvent.start;
+    calendarEvent.endDate = editEvent.endDate;
+    const start = new Date(editEvent.start);
+    const end = new Date(editEvent.end);
+    startHour = getHours(start.getHours());
+    startMinute = start.getMinutes();
+    endHour = getHours(end.getHours());
+    endMinute = end.getMinutes();
+    startAmPm = start.getHours() >= 12 ? "PM" : "AM";
+    endAmPm = end.getHours() >= 12 ? "PM" : "AM";
+  }
+  const setDates = (start, end) => {
+    if (new Date(start).getTime() > new Date(end).getTime()) {
+      endDate = start;
+    }
+  };
   $: calendarEvent.startDate = startDate;
   $: calendarEvent.endDate = endDate;
   $: formattedStartDate = Intl.DateTimeFormat(undefined, {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(calendarEvent.startDate);
-
+  }).format(startDate);
+  $: setDates(startDate, endDate);
   $: formattedEndDate = Intl.DateTimeFormat(undefined, {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(calendarEvent.endDate);
+  }).format(endDate);
 
   const titleChanged = (event) => {
+    title = event.target.value;
     calendarEvent.title = event.target.value;
   };
+  const descriptionChanged = (event) => {
+    description = event.target.value;
+    calendarEvent.description = event.target.value;
+  };
+  onMount(() => {
+    console.log("edit event", editEvent);
+    if (editEvent) {
+      title = editEvent.title;
+      startDate = editEvent.start;
+      endDate = editEvent.end;
+      const start = new Date(editEvent.start);
+      const end = new Date(editEvent.end);
+      startHour = getHours(start.getHours());
+      startMinute = start.getMinutes();
+      endHour = getHours(end.getHours());
+      endMinute = end.getMinutes();
+      startAmPm = start.getHours() >= 12 ? "PM" : "AM";
+      endAmPm = end.getHours() >= 12 ? "PM" : "AM";
+    }
+  });
 </script>
 
 {#if showModal}
@@ -95,7 +141,7 @@
         <Text
           label="Title"
           classes="calInput"
-          value={calendarEvent.title}
+          value={title}
           onChange={titleChanged}
           id="calTitle"
           placeholder="Title" />
@@ -104,7 +150,8 @@
         <Text
           label="description"
           classes="calInput"
-          value={calendarEvent.description}
+          value={description}
+          onChange={descriptionChanged}
           id="calDescription"
           placeholder="Description" />
       </div>
@@ -117,7 +164,7 @@
             Start Date/Time
           </label>
           <div class="border-gray-300 flex mr-4">
-            <DatePicker bind:selected={calendarEvent.startDate}>
+            <DatePicker bind:selected={startDate}>
               <div>
                 <div class="calInput mr-4" tabindex={0}>
                   {formattedStartDate}
@@ -167,7 +214,7 @@
             End Date/Time
           </label>
           <div class="border-gray-300 flex mr-4">
-            <DatePicker bind:selected={calendarEvent.endDate}>
+            <DatePicker bind:selected={endDate}>
               <div>
                 <div class="calInput mr-4" tabindex={0}>{formattedEndDate}</div>
                 <div />

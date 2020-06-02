@@ -18,6 +18,7 @@
   let calendarEvents: any[];
   let calendar: any;
   let calendarDiv: any;
+  let editEvent: any;
 
   eventsStore.subscribe((events) => {
     calendarEvents = events?.map((event, index) => ({
@@ -36,7 +37,6 @@
   const modalClosed = () => {
     showModal = false;
   };
-  console.log(get(user));
 
   user.subscribe(async (value) => {
     const { userId } = value;
@@ -52,12 +52,23 @@
       }
     }
   });
+  const eventClicked = (info) => {
+    console.log(info);
+    const id = info.event.id;
+    editEvent = calendarEvents.find((e) => +e.id === +id);
+    startDate = event.start;
+    endDate = event.end;
+    showModal = true;
+  };
+
   onMount(() => {
     calendar = new Calendar(calendarDiv, {
       plugins: [dayGridPlugin, interactionPlugin],
       selectable: true,
       events: calendarEvents,
       editable: true,
+      eventClick: eventClicked,
+
       height: () => {
         let intViewportHeight = window.innerHeight;
         return intViewportHeight - 100;
@@ -84,5 +95,7 @@
   });
 </script>
 
-<CalendarEvent {showModal} {modalClosed} {startDate} {endDate} />
+{#if showModal}
+  <CalendarEvent {showModal} {modalClosed} {startDate} {endDate} {editEvent} />
+{/if}
 <div class="calendar" bind:this={calendarDiv} />
