@@ -28687,6 +28687,7 @@ var app = (function () {
       description: "",
       activityId: null,
       title: "",
+      id: 0,
     };
 
     const calendarEvents = writable([]);
@@ -32852,48 +32853,48 @@ var app = (function () {
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[36] = list[i];
+    	child_ctx[39] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[39] = list[i];
+    	child_ctx[42] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[42] = list[i];
+    	child_ctx[45] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_3(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[36] = list[i];
+    	child_ctx[39] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[39] = list[i];
+    	child_ctx[42] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_5(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[42] = list[i];
+    	child_ctx[45] = list[i];
     	return child_ctx;
     }
 
-    // (124:0) {#if showModal}
+    // (156:0) {#if showModal}
     function create_if_block$2(ctx) {
     	let current;
 
     	const modal = new Modal({
     			props: {
-    				title: "Add New Event",
-    				onClose: /*onClose*/ ctx[17],
+    				title: /*modalTitle*/ ctx[11],
+    				onClose: /*onClose*/ ctx[18],
     				$$slots: {
     					default: [create_default_slot$1],
     					actions: [create_actions_slot],
@@ -32914,8 +32915,9 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const modal_changes = {};
+    			if (dirty[0] & /*modalTitle*/ 2048) modal_changes.title = /*modalTitle*/ ctx[11];
 
-    			if (dirty[0] & /*endAmPm, endMinute, endHour, endDate, formattedEndDate, startAmPm, startMinute, startHour, startDate, formattedStartDate, description, title*/ 8187 | dirty[1] & /*$$scope*/ 1048576) {
+    			if (dirty[0] & /*endAmPm, endMinute, endHour, endDate, formattedEndDate, startAmPm, startMinute, startHour, startDate, formattedStartDate, description, title*/ 14331 | dirty[1] & /*$$scope*/ 8388608) {
     				modal_changes.$$scope = { dirty, ctx };
     			}
 
@@ -32939,14 +32941,14 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(124:0) {#if showModal}",
+    		source: "(156:0) {#if showModal}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (155:12) <DatePicker bind:selected={startDate}>
+    // (187:12) <DatePicker bind:selected={startDate}>
     function create_default_slot_2(ctx) {
     	let div2;
     	let div0;
@@ -32959,14 +32961,14 @@ var app = (function () {
     		c: function create() {
     			div2 = element("div");
     			div0 = element("div");
-    			t0 = text(/*formattedStartDate*/ ctx[12]);
+    			t0 = text(/*formattedStartDate*/ ctx[13]);
     			t1 = space();
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 156, 16, 5042);
-    			add_location(div1, file$a, 159, 16, 5161);
-    			add_location(div2, file$a, 155, 14, 5020);
+    			add_location(div0, file$a, 188, 16, 6270);
+    			add_location(div1, file$a, 191, 16, 6389);
+    			add_location(div2, file$a, 187, 14, 6248);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -32976,7 +32978,7 @@ var app = (function () {
     			append_dev(div2, div1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*formattedStartDate*/ 4096) set_data_dev(t0, /*formattedStartDate*/ ctx[12]);
+    			if (dirty[0] & /*formattedStartDate*/ 8192) set_data_dev(t0, /*formattedStartDate*/ ctx[13]);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div2);
@@ -32987,17 +32989,17 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(155:12) <DatePicker bind:selected={startDate}>",
+    		source: "(187:12) <DatePicker bind:selected={startDate}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (169:16) {#each hours as hour}
+    // (201:16) {#each hours as hour}
     function create_each_block_5(ctx) {
     	let option;
-    	let t_value = /*hour*/ ctx[42] + "";
+    	let t_value = /*hour*/ ctx[45] + "";
     	let t;
     	let option_value_value;
 
@@ -33005,9 +33007,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*hour*/ ctx[42];
+    			option.__value = option_value_value = /*hour*/ ctx[45];
     			option.value = option.__value;
-    			add_location(option, file$a, 169, 18, 5491);
+    			add_location(option, file$a, 201, 18, 6719);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33023,17 +33025,17 @@ var app = (function () {
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(169:16) {#each hours as hour}",
+    		source: "(201:16) {#each hours as hour}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (179:16) {#each minutes as minute}
+    // (211:16) {#each minutes as minute}
     function create_each_block_4(ctx) {
     	let option;
-    	let t_value = /*minute*/ ctx[39] + "";
+    	let t_value = /*minute*/ ctx[42] + "";
     	let t;
     	let option_value_value;
 
@@ -33041,9 +33043,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*minute*/ ctx[39];
+    			option.__value = option_value_value = /*minute*/ ctx[42];
     			option.value = option.__value;
-    			add_location(option, file$a, 179, 18, 5876);
+    			add_location(option, file$a, 211, 18, 7104);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33059,17 +33061,17 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(179:16) {#each minutes as minute}",
+    		source: "(211:16) {#each minutes as minute}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (187:16) {#each ampm as value}
+    // (219:16) {#each ampm as value}
     function create_each_block_3(ctx) {
     	let option;
-    	let t_value = /*value*/ ctx[36] + "";
+    	let t_value = /*value*/ ctx[39] + "";
     	let t;
     	let option_value_value;
 
@@ -33077,9 +33079,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*value*/ ctx[36];
+    			option.__value = option_value_value = /*value*/ ctx[39];
     			option.value = option.__value;
-    			add_location(option, file$a, 187, 18, 6188);
+    			add_location(option, file$a, 219, 18, 7416);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33095,14 +33097,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(187:16) {#each ampm as value}",
+    		source: "(219:16) {#each ampm as value}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (205:12) <DatePicker bind:selected={endDate}>
+    // (237:12) <DatePicker bind:selected={endDate}>
     function create_default_slot_1(ctx) {
     	let div2;
     	let div0;
@@ -33115,14 +33117,14 @@ var app = (function () {
     		c: function create() {
     			div2 = element("div");
     			div0 = element("div");
-    			t0 = text(/*formattedEndDate*/ ctx[11]);
+    			t0 = text(/*formattedEndDate*/ ctx[12]);
     			t1 = space();
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 206, 16, 6678);
-    			add_location(div1, file$a, 207, 16, 6759);
-    			add_location(div2, file$a, 205, 14, 6656);
+    			add_location(div0, file$a, 238, 16, 7906);
+    			add_location(div1, file$a, 239, 16, 7987);
+    			add_location(div2, file$a, 237, 14, 7884);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33132,7 +33134,7 @@ var app = (function () {
     			append_dev(div2, div1);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*formattedEndDate*/ 2048) set_data_dev(t0, /*formattedEndDate*/ ctx[11]);
+    			if (dirty[0] & /*formattedEndDate*/ 4096) set_data_dev(t0, /*formattedEndDate*/ ctx[12]);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div2);
@@ -33143,17 +33145,17 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(205:12) <DatePicker bind:selected={endDate}>",
+    		source: "(237:12) <DatePicker bind:selected={endDate}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (217:16) {#each hours as hour}
+    // (249:16) {#each hours as hour}
     function create_each_block_2(ctx) {
     	let option;
-    	let t_value = /*hour*/ ctx[42] + "";
+    	let t_value = /*hour*/ ctx[45] + "";
     	let t;
     	let option_value_value;
 
@@ -33161,9 +33163,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*hour*/ ctx[42];
+    			option.__value = option_value_value = /*hour*/ ctx[45];
     			option.value = option.__value;
-    			add_location(option, file$a, 217, 18, 7087);
+    			add_location(option, file$a, 249, 18, 8315);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33179,17 +33181,17 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(217:16) {#each hours as hour}",
+    		source: "(249:16) {#each hours as hour}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (227:16) {#each minutes as minute}
+    // (259:16) {#each minutes as minute}
     function create_each_block_1(ctx) {
     	let option;
-    	let t_value = /*minute*/ ctx[39] + "";
+    	let t_value = /*minute*/ ctx[42] + "";
     	let t;
     	let option_value_value;
 
@@ -33197,9 +33199,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*minute*/ ctx[39];
+    			option.__value = option_value_value = /*minute*/ ctx[42];
     			option.value = option.__value;
-    			add_location(option, file$a, 227, 18, 7470);
+    			add_location(option, file$a, 259, 18, 8698);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33215,17 +33217,17 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(227:16) {#each minutes as minute}",
+    		source: "(259:16) {#each minutes as minute}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (235:16) {#each ampm as value}
+    // (267:16) {#each ampm as value}
     function create_each_block$4(ctx) {
     	let option;
-    	let t_value = /*value*/ ctx[36] + "";
+    	let t_value = /*value*/ ctx[39] + "";
     	let t;
     	let option_value_value;
 
@@ -33233,9 +33235,9 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*value*/ ctx[36];
+    			option.__value = option_value_value = /*value*/ ctx[39];
     			option.value = option.__value;
-    			add_location(option, file$a, 235, 18, 7785);
+    			add_location(option, file$a, 267, 18, 9013);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33251,14 +33253,14 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(235:16) {#each ampm as value}",
+    		source: "(267:16) {#each ampm as value}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (127:4) <div slot="body">
+    // (159:4) <div slot="body">
     function create_body_slot(ctx) {
     	let div0;
     	let div1;
@@ -33306,7 +33308,7 @@ var app = (function () {
     				label: "Title",
     				classes: "calInput",
     				value: /*title*/ ctx[9],
-    				onChange: /*titleChanged*/ ctx[19],
+    				onChange: /*titleChanged*/ ctx[20],
     				id: "calTitle",
     				placeholder: "Title"
     			},
@@ -33318,7 +33320,7 @@ var app = (function () {
     				label: "description",
     				classes: "calInput",
     				value: /*description*/ ctx[10],
-    				onChange: /*descriptionChanged*/ ctx[20],
+    				onChange: /*descriptionChanged*/ ctx[21],
     				id: "calDescription",
     				placeholder: "Description"
     			},
@@ -33326,7 +33328,7 @@ var app = (function () {
     		});
 
     	function datepicker0_selected_binding(value) {
-    		/*datepicker0_selected_binding*/ ctx[29].call(null, value);
+    		/*datepicker0_selected_binding*/ ctx[32].call(null, value);
     	}
 
     	let datepicker0_props = {
@@ -33340,7 +33342,7 @@ var app = (function () {
 
     	const datepicker0 = new Datepicker({ props: datepicker0_props, $$inline: true });
     	binding_callbacks.push(() => bind(datepicker0, "selected", datepicker0_selected_binding));
-    	let each_value_5 = /*hours*/ ctx[13];
+    	let each_value_5 = /*hours*/ ctx[14];
     	validate_each_argument(each_value_5);
     	let each_blocks_5 = [];
 
@@ -33348,7 +33350,7 @@ var app = (function () {
     		each_blocks_5[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
     	}
 
-    	let each_value_4 = /*minutes*/ ctx[14];
+    	let each_value_4 = /*minutes*/ ctx[15];
     	validate_each_argument(each_value_4);
     	let each_blocks_4 = [];
 
@@ -33356,7 +33358,7 @@ var app = (function () {
     		each_blocks_4[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
     	}
 
-    	let each_value_3 = /*ampm*/ ctx[15];
+    	let each_value_3 = /*ampm*/ ctx[16];
     	validate_each_argument(each_value_3);
     	let each_blocks_3 = [];
 
@@ -33365,7 +33367,7 @@ var app = (function () {
     	}
 
     	function datepicker1_selected_binding(value) {
-    		/*datepicker1_selected_binding*/ ctx[32].call(null, value);
+    		/*datepicker1_selected_binding*/ ctx[35].call(null, value);
     	}
 
     	let datepicker1_props = {
@@ -33379,7 +33381,7 @@ var app = (function () {
 
     	const datepicker1 = new Datepicker({ props: datepicker1_props, $$inline: true });
     	binding_callbacks.push(() => bind(datepicker1, "selected", datepicker1_selected_binding));
-    	let each_value_2 = /*hours*/ ctx[13];
+    	let each_value_2 = /*hours*/ ctx[14];
     	validate_each_argument(each_value_2);
     	let each_blocks_2 = [];
 
@@ -33387,7 +33389,7 @@ var app = (function () {
     		each_blocks_2[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     	}
 
-    	let each_value_1 = /*minutes*/ ctx[14];
+    	let each_value_1 = /*minutes*/ ctx[15];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -33395,7 +33397,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	let each_value = /*ampm*/ ctx[15];
+    	let each_value = /*ampm*/ ctx[16];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -33478,56 +33480,56 @@ var app = (function () {
     			}
 
     			attr_dev(div1, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div1, file$a, 127, 6, 4182);
+    			add_location(div1, file$a, 159, 6, 5410);
     			attr_dev(div2, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div2, file$a, 136, 6, 4426);
+    			add_location(div2, file$a, 168, 6, 5654);
     			attr_dev(label0, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label0, file$a, 148, 10, 4751);
+    			add_location(label0, file$a, 180, 10, 5979);
     			attr_dev(select0, "name", "hours");
     			attr_dev(select0, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
-    			if (/*startHour*/ ctx[3] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[30].call(select0));
-    			add_location(select0, file$a, 164, 14, 5276);
+    			if (/*startHour*/ ctx[3] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[33].call(select0));
+    			add_location(select0, file$a, 196, 14, 6504);
     			attr_dev(span0, "class", "mr-3");
-    			add_location(span0, file$a, 172, 14, 5590);
+    			add_location(span0, file$a, 204, 14, 6818);
     			attr_dev(select1, "name", "minutes");
     			attr_dev(select1, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
-    			if (/*startMinute*/ ctx[4] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[31].call(select1));
-    			add_location(select1, file$a, 173, 14, 5632);
+    			if (/*startMinute*/ ctx[4] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[34].call(select1));
+    			add_location(select1, file$a, 205, 14, 6860);
     			attr_dev(select2, "name", "ampm");
     			attr_dev(select2, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
-    			add_location(select2, file$a, 182, 14, 5979);
+    			add_location(select2, file$a, 214, 14, 7207);
     			attr_dev(div3, "class", "flex ml-4 calInput");
-    			add_location(div3, file$a, 163, 12, 5229);
+    			add_location(div3, file$a, 195, 12, 6457);
     			attr_dev(div4, "class", "border-gray-300 flex mr-4");
-    			add_location(div4, file$a, 153, 10, 4915);
-    			add_location(div5, file$a, 147, 8, 4735);
+    			add_location(div4, file$a, 185, 10, 6143);
+    			add_location(div5, file$a, 179, 8, 5963);
     			attr_dev(div6, "class", "flex w-full");
-    			add_location(div6, file$a, 146, 6, 4701);
+    			add_location(div6, file$a, 178, 6, 5929);
     			attr_dev(label1, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label1, file$a, 198, 10, 6391);
+    			add_location(label1, file$a, 230, 10, 7619);
     			attr_dev(select3, "name", "hours");
     			attr_dev(select3, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
-    			if (/*endHour*/ ctx[6] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[33].call(select3));
-    			add_location(select3, file$a, 212, 14, 6874);
+    			if (/*endHour*/ ctx[6] === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[36].call(select3));
+    			add_location(select3, file$a, 244, 14, 8102);
     			attr_dev(span1, "class", "mr-3");
-    			add_location(span1, file$a, 220, 14, 7186);
+    			add_location(span1, file$a, 252, 14, 8414);
     			attr_dev(select4, "name", "minutes");
     			attr_dev(select4, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
-    			if (/*endMinute*/ ctx[7] === void 0) add_render_callback(() => /*select4_change_handler*/ ctx[34].call(select4));
-    			add_location(select4, file$a, 221, 14, 7228);
+    			if (/*endMinute*/ ctx[7] === void 0) add_render_callback(() => /*select4_change_handler*/ ctx[37].call(select4));
+    			add_location(select4, file$a, 253, 14, 8456);
     			attr_dev(select5, "name", "ampm");
     			attr_dev(select5, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
-    			if (/*endAmPm*/ ctx[8] === void 0) add_render_callback(() => /*select5_change_handler*/ ctx[35].call(select5));
-    			add_location(select5, file$a, 230, 14, 7573);
+    			if (/*endAmPm*/ ctx[8] === void 0) add_render_callback(() => /*select5_change_handler*/ ctx[38].call(select5));
+    			add_location(select5, file$a, 262, 14, 8801);
     			attr_dev(div7, "class", "flex ml-4 calInput");
-    			add_location(div7, file$a, 211, 12, 6827);
+    			add_location(div7, file$a, 243, 12, 8055);
     			attr_dev(div8, "class", "border-gray-300 flex mr-4");
-    			add_location(div8, file$a, 203, 10, 6553);
-    			add_location(div9, file$a, 197, 8, 6375);
+    			add_location(div8, file$a, 235, 10, 7781);
+    			add_location(div9, file$a, 229, 8, 7603);
     			attr_dev(div10, "class", "flex w-full");
-    			add_location(div10, file$a, 196, 6, 6341);
+    			add_location(div10, file$a, 228, 6, 7569);
     			attr_dev(div0, "slot", "body");
-    			add_location(div0, file$a, 126, 4, 4158);
+    			add_location(div0, file$a, 158, 4, 5386);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -33609,11 +33611,11 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[30]),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[31]),
-    					listen_dev(select3, "change", /*select3_change_handler*/ ctx[33]),
-    					listen_dev(select4, "change", /*select4_change_handler*/ ctx[34]),
-    					listen_dev(select5, "change", /*select5_change_handler*/ ctx[35])
+    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[33]),
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[34]),
+    					listen_dev(select3, "change", /*select3_change_handler*/ ctx[36]),
+    					listen_dev(select4, "change", /*select4_change_handler*/ ctx[37]),
+    					listen_dev(select5, "change", /*select5_change_handler*/ ctx[38])
     				];
 
     				mounted = true;
@@ -33628,7 +33630,7 @@ var app = (function () {
     			text1.$set(text1_changes);
     			const datepicker0_changes = {};
 
-    			if (dirty[0] & /*formattedStartDate*/ 4096 | dirty[1] & /*$$scope*/ 1048576) {
+    			if (dirty[0] & /*formattedStartDate*/ 8192 | dirty[1] & /*$$scope*/ 8388608) {
     				datepicker0_changes.$$scope = { dirty, ctx };
     			}
 
@@ -33640,8 +33642,8 @@ var app = (function () {
 
     			datepicker0.$set(datepicker0_changes);
 
-    			if (dirty[0] & /*hours*/ 8192) {
-    				each_value_5 = /*hours*/ ctx[13];
+    			if (dirty[0] & /*hours*/ 16384) {
+    				each_value_5 = /*hours*/ ctx[14];
     				validate_each_argument(each_value_5);
     				let i;
 
@@ -33664,12 +33666,12 @@ var app = (function () {
     				each_blocks_5.length = each_value_5.length;
     			}
 
-    			if (dirty[0] & /*startHour, hours*/ 8200) {
+    			if (dirty[0] & /*startHour, hours*/ 16392) {
     				select_option(select0, /*startHour*/ ctx[3]);
     			}
 
-    			if (dirty[0] & /*minutes*/ 16384) {
-    				each_value_4 = /*minutes*/ ctx[14];
+    			if (dirty[0] & /*minutes*/ 32768) {
+    				each_value_4 = /*minutes*/ ctx[15];
     				validate_each_argument(each_value_4);
     				let i;
 
@@ -33692,12 +33694,12 @@ var app = (function () {
     				each_blocks_4.length = each_value_4.length;
     			}
 
-    			if (dirty[0] & /*startMinute, minutes*/ 16400) {
+    			if (dirty[0] & /*startMinute, minutes*/ 32784) {
     				select_option(select1, /*startMinute*/ ctx[4]);
     			}
 
-    			if (dirty[0] & /*ampm*/ 32768) {
-    				each_value_3 = /*ampm*/ ctx[15];
+    			if (dirty[0] & /*ampm*/ 65536) {
+    				each_value_3 = /*ampm*/ ctx[16];
     				validate_each_argument(each_value_3);
     				let i;
 
@@ -33726,7 +33728,7 @@ var app = (function () {
 
     			const datepicker1_changes = {};
 
-    			if (dirty[0] & /*formattedEndDate*/ 2048 | dirty[1] & /*$$scope*/ 1048576) {
+    			if (dirty[0] & /*formattedEndDate*/ 4096 | dirty[1] & /*$$scope*/ 8388608) {
     				datepicker1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -33738,8 +33740,8 @@ var app = (function () {
 
     			datepicker1.$set(datepicker1_changes);
 
-    			if (dirty[0] & /*hours*/ 8192) {
-    				each_value_2 = /*hours*/ ctx[13];
+    			if (dirty[0] & /*hours*/ 16384) {
+    				each_value_2 = /*hours*/ ctx[14];
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -33762,12 +33764,12 @@ var app = (function () {
     				each_blocks_2.length = each_value_2.length;
     			}
 
-    			if (dirty[0] & /*endHour, hours*/ 8256) {
+    			if (dirty[0] & /*endHour, hours*/ 16448) {
     				select_option(select3, /*endHour*/ ctx[6]);
     			}
 
-    			if (dirty[0] & /*minutes*/ 16384) {
-    				each_value_1 = /*minutes*/ ctx[14];
+    			if (dirty[0] & /*minutes*/ 32768) {
+    				each_value_1 = /*minutes*/ ctx[15];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -33790,12 +33792,12 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (dirty[0] & /*endMinute, minutes*/ 16512) {
+    			if (dirty[0] & /*endMinute, minutes*/ 32896) {
     				select_option(select4, /*endMinute*/ ctx[7]);
     			}
 
-    			if (dirty[0] & /*ampm*/ 32768) {
-    				each_value = /*ampm*/ ctx[15];
+    			if (dirty[0] & /*ampm*/ 65536) {
+    				each_value = /*ampm*/ ctx[16];
     				validate_each_argument(each_value);
     				let i;
 
@@ -33818,7 +33820,7 @@ var app = (function () {
     				each_blocks.length = each_value.length;
     			}
 
-    			if (dirty[0] & /*endAmPm, ampm*/ 33024) {
+    			if (dirty[0] & /*endAmPm, ampm*/ 65792) {
     				select_option(select5, /*endAmPm*/ ctx[8]);
     			}
     		},
@@ -33858,14 +33860,14 @@ var app = (function () {
     		block,
     		id: create_body_slot.name,
     		type: "slot",
-    		source: "(127:4) <div slot=\\\"body\\\">",
+    		source: "(159:4) <div slot=\\\"body\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (247:4) <div slot="actions" class="w-full flex justify-end">
+    // (279:4) <div slot="actions" class="w-full flex justify-end">
     function create_actions_slot(ctx) {
     	let div;
     	let t;
@@ -33874,7 +33876,7 @@ var app = (function () {
     	const outlinebutton0 = new Outline_button({
     			props: {
     				label: "Cancel",
-    				onClick: /*onClose*/ ctx[17],
+    				onClick: /*onClose*/ ctx[18],
     				color: "red",
     				classes: "mr-4"
     			},
@@ -33884,7 +33886,7 @@ var app = (function () {
     	const outlinebutton1 = new Outline_button({
     			props: {
     				label: "Save",
-    				onClick: /*saveEvent*/ ctx[18],
+    				onClick: /*saveEvent*/ ctx[19],
     				color: "blue"
     			},
     			$$inline: true
@@ -33898,7 +33900,7 @@ var app = (function () {
     			create_component(outlinebutton1.$$.fragment);
     			attr_dev(div, "slot", "actions");
     			attr_dev(div, "class", "w-full flex justify-end");
-    			add_location(div, file$a, 246, 4, 7948);
+    			add_location(div, file$a, 278, 4, 9176);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -33930,14 +33932,14 @@ var app = (function () {
     		block,
     		id: create_actions_slot.name,
     		type: "slot",
-    		source: "(247:4) <div slot=\\\"actions\\\" class=\\\"w-full flex justify-end\\\">",
+    		source: "(279:4) <div slot=\\\"actions\\\" class=\\\"w-full flex justify-end\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (125:2) <Modal title="Add New Event" {onClose}>
+    // (157:2) <Modal title={modalTitle} {onClose}>
     function create_default_slot$1(ctx) {
     	let t;
 
@@ -33960,7 +33962,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(125:2) <Modal title=\\\"Add New Event\\\" {onClose}>",
+    		source: "(157:2) <Modal title={modalTitle} {onClose}>",
     		ctx
     	});
 
@@ -33981,7 +33983,7 @@ var app = (function () {
     				color: "blue",
     				classes: "fixed bottom-0 right-0 mb-10 mr-10 z-10",
     				title: "Add Event",
-    				onClick: /*setShowModal*/ ctx[16]
+    				onClick: /*setShowModal*/ ctx[17]
     			},
     			$$inline: true
     		});
@@ -33994,9 +33996,9 @@ var app = (function () {
     			div = element("div");
     			create_component(button.$$.fragment);
     			attr_dev(div, "class", "flex flex-wrap -mx-3 mb-6");
-    			add_location(div, file$a, 259, 2, 8250);
+    			add_location(div, file$a, 291, 2, 9478);
     			attr_dev(form, "class", "w-full max-w-lg");
-    			add_location(form, file$a, 258, 0, 8217);
+    			add_location(form, file$a, 290, 0, 9445);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -34064,6 +34066,7 @@ var app = (function () {
     }
 
     function instance$d($$self, $$props, $$invalidate) {
+    	var _a;
     	const hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     	const minutes = ["00", "15", "30", "45"];
     	const ampm = ["AM", "PM"];
@@ -34082,7 +34085,9 @@ var app = (function () {
     	let endAmPm;
     	let title;
     	let description;
+    	let isEdit = false;
     	let calendarEvent = Object.assign({}, defaultCalendarEvent);
+    	let modalTitle = "Add Calendar Event";
 
     	const getHours = hours => {
     		return hours > 12 ? 12 - hours : hours;
@@ -34112,19 +34117,39 @@ var app = (function () {
 
     	const saveEvent = () => {
     		calendarEvents.update(events => {
-    			const startDate = new Date(+new Date(calendarEvent.startDate) + parseDaytime(`${startHour}:${startMinute}${(startAmPm === null || startAmPm === void 0
+    			let startDate = new Date(calendarEvent.startDate);
+    			startDate.setHours(0);
+    			startDate.setMinutes(0);
+
+    			startDate = new Date(startDate.getTime() + parseDaytime(`${startHour}:${startMinute}${(startAmPm === null || startAmPm === void 0
 				? void 0
 				: startAmPm.toLowerCase()) || "am"}`));
 
-    			const endDate = new Date(+new Date(calendarEvent.endDate) + parseDaytime(`${endHour}:${endMinute}${(endAmPm === null || endAmPm === void 0
+    			let endDate = new Date(calendarEvent.endDate);
+    			endDate.setHours(0);
+    			endDate.setMinutes(0);
+
+    			endDate = new Date(endDate.getTime() + parseDaytime(`${endHour}:${endMinute}${(endAmPm === null || endAmPm === void 0
 				? void 0
 				: endAmPm.toLowerCase()) || "am"}`));
 
     			calendarEvent.startDate = startDate;
     			calendarEvent.endDate = endDate;
+    			console.log(startDate, endDate);
+
+    			if (isEdit) {
+    				const index = events.findIndex(e => e.id === calendarEvent.id);
+    				const current = Object.assign(Object.assign({}, events.find(e => e.id === calendarEvent.id)), calendarEvent);
+    				const newEvents = [...events.slice(0, index), ...[current], ...events.slice(index + 1)];
+    				console.log(newEvents);
+    				return [...newEvents];
+    			}
+
     			return [...events, calendarEvent];
     		});
 
+    		isEdit = false;
+    		$$invalidate(22, editEvent = null);
     		calendarEvent = Object.assign({}, defaultCalendarEvent);
     		$$invalidate(2, showModal = false);
     		modalClosed();
@@ -34146,11 +34171,24 @@ var app = (function () {
     		calendarEvent.description = event.target.value;
     	};
 
+    	onDestroy(() => {
+    		console.log("Destroying");
+    	});
+
     	onMount(() => {
+    		var _a;
     		console.log("edit event", editEvent);
 
     		if (editEvent) {
+    			isEdit = true;
+    			calendarEvent.id = editEvent.id;
+    			$$invalidate(11, modalTitle = "Edit Calendar Event");
     			$$invalidate(9, title = editEvent.title);
+
+    			$$invalidate(10, description = (_a = editEvent.extendedProperties) === null || _a === void 0
+    			? void 0
+    			: _a.description);
+
     			$$invalidate(0, startDate = editEvent.start);
     			$$invalidate(1, endDate = editEvent.end);
     			const start = new Date(editEvent.start);
@@ -34180,14 +34218,14 @@ var app = (function () {
 
     	function select0_change_handler() {
     		startHour = select_value(this);
-    		($$invalidate(3, startHour), $$invalidate(22, editEvent));
-    		$$invalidate(13, hours);
+    		(($$invalidate(3, startHour), $$invalidate(22, editEvent)), $$invalidate(24, _a));
+    		$$invalidate(14, hours);
     	}
 
     	function select1_change_handler() {
     		startMinute = select_value(this);
-    		($$invalidate(4, startMinute), $$invalidate(22, editEvent));
-    		$$invalidate(14, minutes);
+    		(($$invalidate(4, startMinute), $$invalidate(22, editEvent)), $$invalidate(24, _a));
+    		$$invalidate(15, minutes);
     	}
 
     	function datepicker1_selected_binding(value) {
@@ -34197,32 +34235,34 @@ var app = (function () {
 
     	function select3_change_handler() {
     		endHour = select_value(this);
-    		($$invalidate(6, endHour), $$invalidate(22, editEvent));
-    		$$invalidate(13, hours);
+    		(($$invalidate(6, endHour), $$invalidate(22, editEvent)), $$invalidate(24, _a));
+    		$$invalidate(14, hours);
     	}
 
     	function select4_change_handler() {
     		endMinute = select_value(this);
-    		($$invalidate(7, endMinute), $$invalidate(22, editEvent));
-    		$$invalidate(14, minutes);
+    		(($$invalidate(7, endMinute), $$invalidate(22, editEvent)), $$invalidate(24, _a));
+    		$$invalidate(15, minutes);
     	}
 
     	function select5_change_handler() {
     		endAmPm = select_value(this);
-    		($$invalidate(8, endAmPm), $$invalidate(22, editEvent));
-    		$$invalidate(15, ampm);
+    		(($$invalidate(8, endAmPm), $$invalidate(22, editEvent)), $$invalidate(24, _a));
+    		$$invalidate(16, ampm);
     	}
 
     	$$self.$set = $$props => {
     		if ("startDate" in $$props) $$invalidate(0, startDate = $$props.startDate);
     		if ("endDate" in $$props) $$invalidate(1, endDate = $$props.endDate);
     		if ("showModal" in $$props) $$invalidate(2, showModal = $$props.showModal);
-    		if ("modalClosed" in $$props) $$invalidate(21, modalClosed = $$props.modalClosed);
+    		if ("modalClosed" in $$props) $$invalidate(23, modalClosed = $$props.modalClosed);
     		if ("editEvent" in $$props) $$invalidate(22, editEvent = $$props.editEvent);
     	};
 
     	$$self.$capture_state = () => ({
+    		_a,
     		onMount,
+    		onDestroy,
     		defaultCalendarEvent,
     		eventsStore: calendarEvents,
     		Button: Small_fab,
@@ -34248,7 +34288,9 @@ var app = (function () {
     		endAmPm,
     		title,
     		description,
+    		isEdit,
     		calendarEvent,
+    		modalTitle,
     		getHours,
     		formattedEndDate,
     		formattedStartDate,
@@ -34262,10 +34304,11 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ("_a" in $$props) $$invalidate(24, _a = $$props._a);
     		if ("startDate" in $$props) $$invalidate(0, startDate = $$props.startDate);
     		if ("endDate" in $$props) $$invalidate(1, endDate = $$props.endDate);
     		if ("showModal" in $$props) $$invalidate(2, showModal = $$props.showModal);
-    		if ("modalClosed" in $$props) $$invalidate(21, modalClosed = $$props.modalClosed);
+    		if ("modalClosed" in $$props) $$invalidate(23, modalClosed = $$props.modalClosed);
     		if ("editEvent" in $$props) $$invalidate(22, editEvent = $$props.editEvent);
     		if ("startTime" in $$props) startTime = $$props.startTime;
     		if ("endTime" in $$props) endTime = $$props.endTime;
@@ -34277,9 +34320,11 @@ var app = (function () {
     		if ("endAmPm" in $$props) $$invalidate(8, endAmPm = $$props.endAmPm);
     		if ("title" in $$props) $$invalidate(9, title = $$props.title);
     		if ("description" in $$props) $$invalidate(10, description = $$props.description);
+    		if ("isEdit" in $$props) isEdit = $$props.isEdit;
     		if ("calendarEvent" in $$props) calendarEvent = $$props.calendarEvent;
-    		if ("formattedEndDate" in $$props) $$invalidate(11, formattedEndDate = $$props.formattedEndDate);
-    		if ("formattedStartDate" in $$props) $$invalidate(12, formattedStartDate = $$props.formattedStartDate);
+    		if ("modalTitle" in $$props) $$invalidate(11, modalTitle = $$props.modalTitle);
+    		if ("formattedEndDate" in $$props) $$invalidate(12, formattedEndDate = $$props.formattedEndDate);
+    		if ("formattedStartDate" in $$props) $$invalidate(13, formattedStartDate = $$props.formattedStartDate);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -34287,11 +34332,16 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty[0] & /*editEvent*/ 4194304) {
+    		if ($$self.$$.dirty[0] & /*editEvent, _a*/ 20971520) {
     			 if (editEvent) {
     				calendarEvent.title = editEvent.title;
     				calendarEvent.startDate = editEvent.start;
     				calendarEvent.endDate = editEvent.endDate;
+
+    				calendarEvent.description = $$invalidate(24, _a = editEvent.extendedProperties) === null || _a === void 0
+    				? void 0
+    				: _a.description;
+
     				const start = new Date(editEvent.start);
     				const end = new Date(editEvent.end);
     				$$invalidate(3, startHour = getHours(start.getHours()));
@@ -34312,7 +34362,7 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty[0] & /*startDate*/ 1) {
-    			 $$invalidate(12, formattedStartDate = Intl.DateTimeFormat(undefined, {
+    			 $$invalidate(13, formattedStartDate = Intl.DateTimeFormat(undefined, {
     				year: "numeric",
     				month: "2-digit",
     				day: "2-digit"
@@ -34324,7 +34374,7 @@ var app = (function () {
     		}
 
     		if ($$self.$$.dirty[0] & /*endDate*/ 2) {
-    			 $$invalidate(11, formattedEndDate = Intl.DateTimeFormat(undefined, {
+    			 $$invalidate(12, formattedEndDate = Intl.DateTimeFormat(undefined, {
     				year: "numeric",
     				month: "2-digit",
     				day: "2-digit"
@@ -34344,6 +34394,7 @@ var app = (function () {
     		endAmPm,
     		title,
     		description,
+    		modalTitle,
     		formattedEndDate,
     		formattedStartDate,
     		hours,
@@ -34354,8 +34405,10 @@ var app = (function () {
     		saveEvent,
     		titleChanged,
     		descriptionChanged,
-    		modalClosed,
     		editEvent,
+    		modalClosed,
+    		_a,
+    		isEdit,
     		calendarEvent,
     		startTime,
     		endTime,
@@ -34386,7 +34439,7 @@ var app = (function () {
     				startDate: 0,
     				endDate: 1,
     				showModal: 2,
-    				modalClosed: 21,
+    				modalClosed: 23,
     				editEvent: 22
     			},
     			[-1, -1]
@@ -34410,7 +34463,7 @@ var app = (function () {
     			console_1.warn("<Calendar_event> was created without expected prop 'endDate'");
     		}
 
-    		if (/*modalClosed*/ ctx[21] === undefined && !("modalClosed" in props)) {
+    		if (/*modalClosed*/ ctx[23] === undefined && !("modalClosed" in props)) {
     			console_1.warn("<Calendar_event> was created without expected prop 'modalClosed'");
     		}
     	}
@@ -34473,7 +34526,7 @@ var app = (function () {
     const { console: console_1$1 } = globals;
     const file$b = "src/pages/calendar.svelte";
 
-    // (96:0) {#if showModal}
+    // (98:0) {#if showModal}
     function create_if_block$3(ctx) {
     	let current;
 
@@ -34522,7 +34575,7 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(96:0) {#if showModal}",
+    		source: "(98:0) {#if showModal}",
     		ctx
     	});
 
@@ -34541,7 +34594,7 @@ var app = (function () {
     			t = space();
     			div = element("div");
     			attr_dev(div, "class", "calendar");
-    			add_location(div, file$b, 98, 0, 3348);
+    			add_location(div, file$b, 100, 0, 3434);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -34657,7 +34710,8 @@ var app = (function () {
     				id: index,
     				title: event.title,
     				start: event.startDate,
-    				end: event.endDate
+    				end: event.endDate,
+    				extendedProperties: { description: event.description }
     			}));
 
     		if (calendarDiv) {
@@ -34668,6 +34722,7 @@ var app = (function () {
 
     	const modalClosed = () => {
     		$$invalidate(0, showModal = false);
+    		$$invalidate(4, editEvent = null);
     	};
 
     	user.subscribe(value => __awaiter(void 0, void 0, void 0, function* () {

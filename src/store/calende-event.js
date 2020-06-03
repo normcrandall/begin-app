@@ -5,4 +5,5 @@ export const defaultCalendarEvent = {
   description: "",
   activityId: null,
   title: "",
+  id: 0,
 };

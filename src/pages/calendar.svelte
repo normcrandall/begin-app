@@ -26,6 +26,7 @@
       title: event.title,
       start: event.startDate,
       end: event.endDate,
+      extendedProperties: { description: event.description },
     }));
 
     if (calendarDiv) {
@@ -36,6 +37,7 @@
 
   const modalClosed = () => {
     showModal = false;
+    editEvent = null;
   };
 
   user.subscribe(async (value) => {

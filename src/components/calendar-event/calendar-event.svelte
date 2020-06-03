@@ -1,5 +1,5 @@
 <script lang="typescript">
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { defaultCalendarEvent } from "../../store/calende-event";
   import { calendarEvents as eventsStore } from "../../store/calendar-events";
   import Button from "../buttons/small-fab.svelte";
@@ -26,7 +26,9 @@
   let endAmPm;
   let title;
   let description;
+  let isEdit = false;
   let calendarEvent = { ...defaultCalendarEvent };
+  let modalTitle = "Add Calendar Event";
   const getHours = (hours) => {
     return hours > 12 ? 12 - hours : hours;
   };
@@ -54,23 +56,49 @@
   };
   const saveEvent = () => {
     eventsStore.update((events) => {
-      const startDate = new Date(
-        +new Date(calendarEvent.startDate) +
+      let startDate = new Date(calendarEvent.startDate);
+      startDate.setHours(0);
+      startDate.setMinutes(0);
+      startDate = new Date(
+        startDate.getTime() +
           parseDaytime(
             `${startHour}:${startMinute}${startAmPm?.toLowerCase() || "am"}`
           )
       );
-      const endDate = new Date(
-        +new Date(calendarEvent.endDate) +
+
+      let endDate = new Date(calendarEvent.endDate);
+      endDate.setHours(0);
+      endDate.setMinutes(0);
+      endDate = new Date(
+        endDate.getTime() +
           parseDaytime(
             `${endHour}:${endMinute}${endAmPm?.toLowerCase() || "am"}`
           )
       );
-
       calendarEvent.startDate = startDate;
       calendarEvent.endDate = endDate;
+      console.log(startDate, endDate);
+      if (isEdit) {
+        const index = events.findIndex((e) => e.id === calendarEvent.id);
+
+        const current = {
+          ...events.find((e) => e.id === calendarEvent.id),
+          ...calendarEvent,
+        };
+
+        const newEvents = [
+          ...events.slice(0, index),
+          ...[current],
+          ...events.slice(index + 1),
+        ];
+        console.log(newEvents);
+        return [...newEvents];
+      }
+
       return [...events, calendarEvent];
     });
+    isEdit = false;
+    editEvent = null;
     calendarEvent = { ...defaultCalendarEvent };
     showModal = false;
     modalClosed();
@@ -79,6 +107,7 @@
     calendarEvent.title = editEvent.title;
     calendarEvent.startDate = editEvent.start;
     calendarEvent.endDate = editEvent.endDate;
+    calendarEvent.description = editEvent.extendedProperties?.description;
     const start = new Date(editEvent.start);
     const end = new Date(editEvent.end);
     startHour = getHours(start.getHours());
@@ -115,10 +144,17 @@
     description = event.target.value;
     calendarEvent.description = event.target.value;
   };
+  onDestroy(() => {
+    console.log("Destroying");
+  });
   onMount(() => {
     console.log("edit event", editEvent);
     if (editEvent) {
+      isEdit = true;
+      calendarEvent.id = editEvent.id;
+      modalTitle = "Edit Calendar Event";
       title = editEvent.title;
+      description = editEvent.extendedProperties?.description;
       startDate = editEvent.start;
       endDate = editEvent.end;
       const start = new Date(editEvent.start);
@@ -134,7 +170,7 @@
 </script>
 
 {#if showModal}
-  <Modal title="Add New Event" {onClose}>
+  <Modal title={modalTitle} {onClose}>
 
     <div slot="body">
       <div class="w-full md:w-1/2 mb-6 md:mb-0">
