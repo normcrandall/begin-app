@@ -1,7 +1,7 @@
 <script lang="typescript">
   import { auth, provider } from "../../helpers/firebase.js";
   import { navigate } from "svelte-routing";
-  import { user } from "../../store/user";
+  import { user } from "../../store/user.ts";
   import OutlineButton from "../buttons/outline-button.svelte";
 
   let email = "";

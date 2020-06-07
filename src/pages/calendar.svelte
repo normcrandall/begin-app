@@ -7,10 +7,10 @@
   import { onMount } from "svelte";
   import CalendarEvent from "../components/calendar-event/calendar-event.svelte";
   import { calendarEvents as eventsStore } from "../store/calendar-events";
-  import { user } from "../store/user";
+  import { user, getUserCalendars } from "../store/user.ts";
   import { get } from "svelte/store";
-
-  import { getCalendars } from "../data/queries";
+  import { editEvent, clear } from "../store/edit-event";
+  import Button from "../components/buttons/small-fab.svelte";
 
   let showModal: boolean = false;
   let startDate: Date;
@@ -18,7 +18,6 @@
   let calendarEvents: any[];
   let calendar: any;
   let calendarDiv: any;
-  let editEvent: any;
 
   eventsStore.subscribe((events) => {
     calendarEvents = events?.map((event, index) => ({
@@ -37,29 +36,16 @@
 
   const modalClosed = () => {
     showModal = false;
-    editEvent = null;
+    editEvent.set(undefined);
   };
 
-  user.subscribe(async (value) => {
-    const { userId } = value;
-    const { data } = await client.query<{ calendarQuery: any[] }>({
-      query: getCalendars,
-      variables: {
-        where: { userId: { _eq: userId } },
-      },
-    });
-    if (data) {
-      const { calendarQuery } = data;
-      if (!calendarQuery || calendarQuery.length === 0) {
-      }
-    }
-  });
+  user.subscribe(async (value) => {});
   const eventClicked = (info) => {
     console.log(info);
     const id = info.event.id;
-    editEvent = calendarEvents.find((e) => +e.id === +id);
-    startDate = event.start;
-    endDate = event.end;
+    editEvent.update(() => calendarEvents.find((e) => +e.id === +id));
+    startDate = info.event.start;
+    endDate = info.event.end;
     showModal = true;
   };
 
@@ -89,15 +75,28 @@
       endDate = info.end;
       showModal = true;
     });
+    calendar.on("viewSkeletonRender", (info) => {
+      const { view } = info;
+    });
     calendar.on("eventDrop", (info) => {
       console.log(info);
     });
 
     calendar.render();
   });
+  const setShowModal = () => {
+    showModal = true;
+  };
 </script>
 
 {#if showModal}
-  <CalendarEvent {showModal} {modalClosed} {startDate} {endDate} {editEvent} />
+  <CalendarEvent {showModal} {modalClosed} {startDate} {endDate} />
 {/if}
 <div class="calendar" bind:this={calendarDiv} />
+<Button
+  type="button"
+  size="small"
+  color="blue"
+  classes="fixed bottom-0 right-0 mb-10 mr-10 z-10"
+  title="Add Event"
+  onClick={setShowModal} />

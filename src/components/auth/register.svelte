@@ -1,9 +1,9 @@
 <script>
   import { auth, provider } from "../../helpers/firebase.js";
   import { navigate } from "svelte-routing";
-  import { user } from "../../store/user.js";
+  import { user } from "../../store/user.ts";
   import { client } from "../../data/index.js";
-  import { createUser } from "../../data/mutations/index";
+  import { createUser } from "../../data/mutations/index.ts";
   import { mutate } from "svelte-apollo";
 
   const handleGoogleLogin = async () => {

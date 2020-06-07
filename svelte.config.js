@@ -1,8 +1,17 @@
-const sveltePreprocess = require("svelte-preprocess");
+const {
+  preprocess,
+  createEnv,
+  readConfigFile,
+} = require("@pyoner/svelte-ts-preprocess");
+
+const env = createEnv();
 
 module.exports = {
-  preprocess: sveltePreprocess({
-    // ...svelte-preprocess options (optional)
+  preprocess: preprocess({
+    env,
+    compilerOptions: {
+      ...readConfigFile(env),
+      allowNonTsExtensions: true,
+    },
   }),
-  // ...other svelte options (optional)
 };
