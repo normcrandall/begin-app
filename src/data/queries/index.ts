@@ -11,3 +11,19 @@ export const getCalendars = gql`
     }
   }
 `;
+
+export const getActivities = gql`
+  query getActivities($where: maketime_activity_bool_exp, $id: Int!) {
+    calendar(id: $id) {
+      activities(where: $where) {
+        id
+        start
+        end
+        description
+        title
+        activityType
+        title
+      }
+    }
+  }
+`;

@@ -20,3 +20,26 @@ export const createCalendar = gql`
     }
   }
 `;
+
+export const insertActivity = gql`
+  mutation insertActivity($objects: [maketime_activity_insert_input!]!) {
+    insert_maketime_activity(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+export const updateActivity = gql`
+  mutation updateActivity(
+    $set: maketime_activity_set_input
+    $where: maketime_activity_bool_exp!
+  ) {
+    update_maketime_activity(_set: $set, where: $where) {
+      returning {
+        id
+      }
+    }
+  }
+`;

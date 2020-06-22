@@ -22,8 +22,6 @@ export default {
     file: "public/build/bundle.js",
   },
   plugins: [
-    commonjs(),
-    typescript({ typescript: tscompile, clean: true }),
     css({ output: "public/build/extra.css" }),
     replace({
       // stringify the object
@@ -61,7 +59,7 @@ export default {
       browser: true,
       dedupe: ["svelte"],
     }),
-    // commonjs(),
+    commonjs(),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated

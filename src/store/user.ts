@@ -3,6 +3,7 @@ import { client } from "../data/index";
 import { getCalendars } from "../data/queries/index.ts";
 import { createCalendar } from "../data/mutations/index.ts";
 
+
 import { auth } from "../helpers/firebase.js";
 export const user = writable({
   loggedIn: false,
@@ -28,6 +29,7 @@ export const getUserCalendars = async (uid) => {
           objects: { isDefault: true, name: "Default", userId: uid },
         },
       });
+
 
       user.set({
         loggedIn: true,

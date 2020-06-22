@@ -6,54 +6,84 @@
   import interactionPlugin from "@fullcalendar/interaction";
   import { onMount } from "svelte";
   import CalendarEvent from "../components/calendar-event/calendar-event.svelte";
-  import { calendarEvents as eventsStore } from "../store/calendar-events";
+  import {
+    calendarEvents,
+    updateEvent,
+    getCalendarEvents,
+  } from "../store/edit-event";
   import { user, getUserCalendars } from "../store/user.ts";
   import { get } from "svelte/store";
-  import { editEvent, clear } from "../store/edit-event";
+  import { editEvent, clear, saveEvent } from "../store/edit-event";
   import Button from "../components/buttons/small-fab.svelte";
 
   let showModal: boolean = false;
   let startDate: Date;
   let endDate: Date;
-  let calendarEvents: any[];
+
   let calendar: any;
   let calendarDiv: any;
+  let activeStart: any;
+  let activeEnd: any;
 
-  eventsStore.subscribe((events) => {
-    calendarEvents = events?.map((event, index) => ({
-      id: index,
-      title: event.title,
-      start: event.startDate,
-      end: event.endDate,
-      extendedProperties: { description: event.description },
-    }));
+  calendarEvents.subscribe((events) => {
+    const mappedEvents = events?.map?.((event, index) => {
+      console.log("mapping event", event);
+      return {
+        id: +event.id,
+        title: event.title,
+        start: event.start,
+        end: event.end,
+        description: event.description,
+      };
+    });
 
-    if (calendarDiv) {
+    if (calendarDiv && mappedEvents) {
       calendar.removeAllEventSources();
-      calendar.addEventSource(calendarEvents);
+      calendar.addEventSource(mappedEvents);
     }
   });
 
   const modalClosed = () => {
     showModal = false;
-    editEvent.set(undefined);
+    clear();
   };
 
-  user.subscribe(async (value) => {});
   const eventClicked = (info) => {
-    console.log(info);
-    const id = info.event.id;
-    editEvent.update(() => calendarEvents.find((e) => +e.id === +id));
-    startDate = info.event.start;
-    endDate = info.event.end;
+    const id = +info.event.id;
+    console.log("events", $calendarEvents);
+    const event = $calendarEvents.find((e) => +e.id === +id);
+    editEvent.update(() => event);
     showModal = true;
   };
+
+  const updateDraggedEvent = async (info) => {
+    const event = info.event;
+    console.log("info", info);
+    const newEvent = {
+      start: new Date(event.start),
+      end: new Date(event.end),
+      title: event.title,
+      description: event.extendedProps.description,
+      allDay: false,
+      cancelled: false,
+      calendarId: get(user).calendars[0].id,
+      id: event.id,
+    };
+    editEvent.update((e) => ({
+      ...e,
+      ...newEvent,
+    }));
+    await updateEvent();
+  };
+  user.subscribe((user) => {
+    getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
+  });
 
   onMount(() => {
     calendar = new Calendar(calendarDiv, {
       plugins: [dayGridPlugin, interactionPlugin],
       selectable: true,
-      events: calendarEvents,
+      events: [],
       editable: true,
       eventClick: eventClicked,
 
@@ -63,9 +93,13 @@
       },
     });
     calendar.on("dateClick", function (info) {
-      console.log(info);
-      startDate = info.date;
-      endDate = info.date;
+      const start = info.date;
+      const end = info.date;
+
+      editEvent.update((e) => ({
+        ...e,
+        ...{ start: start, end: end },
+      }));
 
       showModal = true;
     });
@@ -76,21 +110,20 @@
       showModal = true;
     });
     calendar.on("viewSkeletonRender", (info) => {
-      const { view } = info;
+      (activeStart = info.view.activeStart), (activeEnd = info.view.activeEnd);
     });
-    calendar.on("eventDrop", (info) => {
-      console.log(info);
-    });
+    calendar.on("eventDrop", updateDraggedEvent);
 
     calendar.render();
   });
   const setShowModal = () => {
     showModal = true;
   };
+  // $: getCalendarEvents(activeStart, activeEnd, $user)
 </script>
 
 {#if showModal}
-  <CalendarEvent {showModal} {modalClosed} {startDate} {endDate} />
+  <CalendarEvent {showModal} {modalClosed} />
 {/if}
 <div class="calendar" bind:this={calendarDiv} />
 <Button
