@@ -33127,7 +33127,7 @@ var app = (function () {
           startDate.getTime() +
             parseDaytime(
               `${event.startHour}:${event.startMinute}${
-            event.startAmPm?.toLowerCase() || "am"
+            event.startAmPm ? event.startAmPm.toLowerCase() : "am"
           }`
             )
         );
@@ -33139,7 +33139,7 @@ var app = (function () {
           endDate.getTime() +
             parseDaytime(
               `${event.endHour}:${event.endMinute}${
-            event.endAmPm?.toLowerCase() || "am"
+            event.endAmPm ? event.endAmPm.toLowerCase() : "am"
           }`
             )
         );

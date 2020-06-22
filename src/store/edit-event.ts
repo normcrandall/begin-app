@@ -151,7 +151,7 @@ export const saveEvent = async () => {
       startDate.getTime() +
         parseDaytime(
           `${event.startHour}:${event.startMinute}${
-            event.startAmPm?.toLowerCase() || "am"
+            event.startAmPm ? event.startAmPm.toLowerCase() : "am"
           }`
         )
     );
@@ -163,7 +163,7 @@ export const saveEvent = async () => {
       endDate.getTime() +
         parseDaytime(
           `${event.endHour}:${event.endMinute}${
-            event.endAmPm?.toLowerCase() || "am"
+            event.endAmPm ? event.endAmPm.toLowerCase() : "am"
           }`
         )
     );
