@@ -10,10 +10,13 @@
     calendarEvents,
     updateEvent,
     getCalendarEvents,
-  } from "../store/edit-event";
+    editEvent,
+    clear,
+    saveEvent,
+  } from "../store/edit-event.ts";
   import { user, getUserCalendars } from "../store/user.ts";
   import { get } from "svelte/store";
-  import { editEvent, clear, saveEvent } from "../store/edit-event";
+
   import Button from "../components/buttons/small-fab.svelte";
 
   let showModal: boolean = false;

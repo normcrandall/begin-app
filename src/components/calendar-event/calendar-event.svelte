@@ -6,7 +6,7 @@
   import Text from "../inputs/text.svelte";
   import OutlineButton from "../buttons/outline-button.svelte";
   import DatePicker from "../datepicker/Datepicker.svelte";
-  import { editEvent, clear, saveEvent } from "../../store/edit-event";
+  import { editEvent, clear, saveEvent } from "../../store/edit-event.ts";
 
   const hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const minutes = ["00", "15", "30", "45"];

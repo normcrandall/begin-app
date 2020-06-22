@@ -33338,9 +33338,9 @@ var app = (function () {
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 104, 16, 3025);
-    			add_location(div1, file$a, 107, 16, 3144);
-    			add_location(div2, file$a, 103, 14, 3003);
+    			add_location(div0, file$a, 104, 16, 3028);
+    			add_location(div1, file$a, 107, 16, 3147);
+    			add_location(div2, file$a, 103, 14, 3006);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33381,7 +33381,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*hour*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$a, 117, 18, 3485);
+    			add_location(option, file$a, 117, 18, 3488);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33417,7 +33417,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*minute*/ ctx[27];
     			option.value = option.__value;
-    			add_location(option, file$a, 127, 18, 3881);
+    			add_location(option, file$a, 127, 18, 3884);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33453,7 +33453,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*value*/ ctx[24];
     			option.value = option.__value;
-    			add_location(option, file$a, 135, 18, 4204);
+    			add_location(option, file$a, 135, 18, 4207);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33494,9 +33494,9 @@ var app = (function () {
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 154, 16, 4701);
-    			add_location(div1, file$a, 155, 16, 4782);
-    			add_location(div2, file$a, 153, 14, 4679);
+    			add_location(div0, file$a, 154, 16, 4704);
+    			add_location(div1, file$a, 155, 16, 4785);
+    			add_location(div2, file$a, 153, 14, 4682);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33537,7 +33537,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*hour*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$a, 165, 18, 5121);
+    			add_location(option, file$a, 165, 18, 5124);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33573,7 +33573,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*minute*/ ctx[27];
     			option.value = option.__value;
-    			add_location(option, file$a, 175, 18, 5515);
+    			add_location(option, file$a, 175, 18, 5518);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33609,7 +33609,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*value*/ ctx[24];
     			option.value = option.__value;
-    			add_location(option, file$a, 183, 18, 5841);
+    			add_location(option, file$a, 183, 18, 5844);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33852,56 +33852,56 @@ var app = (function () {
     			}
 
     			attr_dev(div1, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div1, file$a, 75, 6, 2136);
+    			add_location(div1, file$a, 75, 6, 2139);
     			attr_dev(div2, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div2, file$a, 84, 6, 2391);
+    			add_location(div2, file$a, 84, 6, 2394);
     			attr_dev(label0, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label0, file$a, 96, 10, 2727);
+    			add_location(label0, file$a, 96, 10, 2730);
     			attr_dev(select0, "name", "hours");
     			attr_dev(select0, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].startHour === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[18].call(select0));
-    			add_location(select0, file$a, 112, 14, 3259);
+    			add_location(select0, file$a, 112, 14, 3262);
     			attr_dev(span0, "class", "mr-3");
-    			add_location(span0, file$a, 120, 14, 3584);
+    			add_location(span0, file$a, 120, 14, 3587);
     			attr_dev(select1, "name", "minutes");
     			attr_dev(select1, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
     			if (/*$editEvent*/ ctx[4].startMinute === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[19].call(select1));
-    			add_location(select1, file$a, 121, 14, 3626);
+    			add_location(select1, file$a, 121, 14, 3629);
     			attr_dev(select2, "name", "ampm");
     			attr_dev(select2, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
-    			add_location(select2, file$a, 130, 14, 3984);
+    			add_location(select2, file$a, 130, 14, 3987);
     			attr_dev(div3, "class", "flex ml-4 calInput");
-    			add_location(div3, file$a, 111, 12, 3212);
+    			add_location(div3, file$a, 111, 12, 3215);
     			attr_dev(div4, "class", "border-gray-300 flex mr-4");
-    			add_location(div4, file$a, 101, 10, 2891);
-    			add_location(div5, file$a, 95, 8, 2711);
+    			add_location(div4, file$a, 101, 10, 2894);
+    			add_location(div5, file$a, 95, 8, 2714);
     			attr_dev(div6, "class", "flex w-full");
-    			add_location(div6, file$a, 94, 6, 2677);
+    			add_location(div6, file$a, 94, 6, 2680);
     			attr_dev(label1, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label1, file$a, 146, 10, 4407);
+    			add_location(label1, file$a, 146, 10, 4410);
     			attr_dev(select3, "name", "hours");
     			attr_dev(select3, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].endHour === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[21].call(select3));
-    			add_location(select3, file$a, 160, 14, 4897);
+    			add_location(select3, file$a, 160, 14, 4900);
     			attr_dev(span1, "class", "mr-3");
-    			add_location(span1, file$a, 168, 14, 5220);
+    			add_location(span1, file$a, 168, 14, 5223);
     			attr_dev(select4, "name", "minutes");
     			attr_dev(select4, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
     			if (/*$editEvent*/ ctx[4].endMinute === void 0) add_render_callback(() => /*select4_change_handler*/ ctx[22].call(select4));
-    			add_location(select4, file$a, 169, 14, 5262);
+    			add_location(select4, file$a, 169, 14, 5265);
     			attr_dev(select5, "name", "ampm");
     			attr_dev(select5, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].endAmPm === void 0) add_render_callback(() => /*select5_change_handler*/ ctx[23].call(select5));
-    			add_location(select5, file$a, 178, 14, 5618);
+    			add_location(select5, file$a, 178, 14, 5621);
     			attr_dev(div7, "class", "flex ml-4 calInput");
-    			add_location(div7, file$a, 159, 12, 4850);
+    			add_location(div7, file$a, 159, 12, 4853);
     			attr_dev(div8, "class", "border-gray-300 flex mr-4");
-    			add_location(div8, file$a, 151, 10, 4569);
-    			add_location(div9, file$a, 145, 8, 4391);
+    			add_location(div8, file$a, 151, 10, 4572);
+    			add_location(div9, file$a, 145, 8, 4394);
     			attr_dev(div10, "class", "flex w-full");
-    			add_location(div10, file$a, 144, 6, 4357);
+    			add_location(div10, file$a, 144, 6, 4360);
     			attr_dev(div0, "slot", "body");
-    			add_location(div0, file$a, 74, 4, 2112);
+    			add_location(div0, file$a, 74, 4, 2115);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -34272,7 +34272,7 @@ var app = (function () {
     			create_component(outlinebutton1.$$.fragment);
     			attr_dev(div, "slot", "actions");
     			attr_dev(div, "class", "w-full flex justify-end");
-    			add_location(div, file$a, 194, 4, 6004);
+    			add_location(div, file$a, 194, 4, 6007);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -34656,7 +34656,7 @@ var app = (function () {
     const { console: console_1$1 } = globals;
     const file$b = "src/pages/calendar.svelte";
 
-    // (109:0) {#if showModal}
+    // (108:0) {#if showModal}
     function create_if_block$3(ctx) {
     	let current;
 
@@ -34699,7 +34699,7 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(109:0) {#if showModal}",
+    		source: "(108:0) {#if showModal}",
     		ctx
     	});
 
@@ -34733,7 +34733,7 @@ var app = (function () {
     			t1 = space();
     			create_component(button.$$.fragment);
     			attr_dev(div, "class", "calendar");
-    			add_location(div, file$b, 111, 0, 3533);
+    			add_location(div, file$b, 110, 0, 3498);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -34943,12 +34943,12 @@ var app = (function () {
     		calendarEvents,
     		updateEvent,
     		getCalendarEvents,
-    		user,
-    		getUserCalendars,
-    		get: get_store_value,
     		editEvent,
     		clear,
     		saveEvent,
+    		user,
+    		getUserCalendars,
+    		get: get_store_value,
     		Button: Small_fab,
     		showModal,
     		startDate,
