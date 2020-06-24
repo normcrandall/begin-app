@@ -11166,7 +11166,7 @@ var app = (function () {
           },
         });
       },
-      uri: "https://hasuradata.journeytomaketi.me/",
+      uri: "https://hasuradata.journeytomaketi.me/v1/graphql",
     });
 
     // tslint:disable
