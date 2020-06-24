@@ -8,5 +8,5 @@ export const client = new ApolloClient({
       },
     });
   },
-  uri: "http://159.65.41.5/v1/graphql",
+  uri: "https://hasuradata.journeytomaketi.me/",
 });

@@ -11166,7 +11166,7 @@ var app = (function () {
           },
         });
       },
-      uri: "http://159.65.41.5/v1/graphql",
+      uri: "https://hasuradata.journeytomaketi.me/",
     });
 
     // tslint:disable
