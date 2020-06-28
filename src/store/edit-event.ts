@@ -86,7 +86,7 @@ export const updateEvent = async () => {
       startDate.getTime() +
         parseDaytime(
           `${event.startHour}:${event.startMinute}${
-            event.startAmPm?.toLowerCase() || "am"
+            event.startAmPm.toLowerCase() || "am"
           }`
         )
     );
@@ -98,7 +98,7 @@ export const updateEvent = async () => {
       endDate.getTime() +
         parseDaytime(
           `${event.endHour}:${event.endMinute}${
-            event.endAmPm?.toLowerCase() || "am"
+            event.endAmPm.toLowerCase() || "am"
           }`
         )
     );
