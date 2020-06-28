@@ -34658,7 +34658,7 @@ var app = (function () {
     const { console: console_1$1 } = globals;
     const file$b = "src/pages/calendar.svelte";
 
-    // (142:0) {#if showModal}
+    // (144:0) {#if showModal}
     function create_if_block$3(ctx) {
     	let current;
 
@@ -34701,7 +34701,7 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(142:0) {#if showModal}",
+    		source: "(144:0) {#if showModal}",
     		ctx
     	});
 
@@ -34735,7 +34735,7 @@ var app = (function () {
     			t1 = space();
     			create_component(button.$$.fragment);
     			attr_dev(div, "class", "calendar");
-    			add_location(div, file$b, 144, 0, 4473);
+    			add_location(div, file$b, 146, 0, 4509);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -34912,7 +34912,9 @@ var app = (function () {
     	};
 
     	user.subscribe(user => {
-    		getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
+    		if (user.calendars) {
+    			getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
+    		}
     	});
 
     	onMount(() => {

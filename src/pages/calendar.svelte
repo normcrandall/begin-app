@@ -118,7 +118,9 @@
     await updateEvent();
   };
   user.subscribe((user) => {
-    getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
+    if (user.calendars) {
+      getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
+    }
   });
 
   onMount(() => {
