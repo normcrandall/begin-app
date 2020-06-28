@@ -51,11 +51,50 @@
     clear();
   };
 
+  const getTime = (date: Date) => {
+    let ampm;
+    const time = date.toLocaleTimeString();
+    let [hours, minutes] = time.split(":").map(Number);
+    if (
+      time.toLocaleLowerCase().includes("am") ||
+      time.toLocaleLowerCase().includes("pm")
+    ) {
+      ampm = time.toLocaleLowerCase().includes("am") ? "AM" : "PM";
+    } else {
+      if (hours > 12) {
+        hours = hours - 12;
+        ampm = "PM";
+      } else {
+        ampm = "AM";
+      }
+      if (hours === 0) {
+        hours = 12;
+      }
+    }
+
+    return { hours, minutes: minutes.toString(), ampm };
+  };
+  const getTimes = (event) => {
+    const { hours: startHour, minutes: startMinute, ampm: startAmPm } = getTime(
+      event.start
+    );
+    const { hours: endHour, minutes: endMinute, ampm: endAmPm } = getTime(
+      event.end
+    );
+    return {
+      startHour,
+      startMinute,
+      startAmPm,
+      endHour,
+      endMinute,
+      endAmPm,
+    };
+  };
   const eventClicked = (info) => {
     const id = +info.event.id;
     console.log("events", $calendarEvents);
     const event = $calendarEvents.find((e) => +e.id === +id);
-    editEvent.update(() => event);
+    editEvent.update(() => ({ ...event, ...getTimes(event) }));
     showModal = true;
   };
 

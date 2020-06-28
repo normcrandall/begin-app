@@ -36,8 +36,8 @@ const parseDaytime = (time) => {
     .substr(0, time.length - 2)
     .split(":")
     .map(Number);
-  if (time.includes("pm") && hours !== 12) hours += 12;
-  if (time.includes("am") && hours === 12) hours -= 12;
+  if (time?.toLowerCase().includes("pm") && hours !== 12) hours += 12;
+  if (time?.toLowerCase().includes("am") && hours === 12) hours -= 12;
   console.log("hours", hours);
   return 1000 /*ms*/ * 60 /*s*/ * (hours * 60 + minutes);
 };
@@ -78,31 +78,32 @@ export const getCalendarEvents = async (start, end, calendarId) => {
 
 export const updateEvent = async () => {
   editEvent.update(async (event) => {
-    // let startDate = new Date(event.start);
-    // startDate.setHours(0);
-    // startDate.setMinutes(0);
-    // startDate = new Date(
-    //   startDate.getTime() +
-    //     parseDaytime(
-    //       `${event.startHour}:${event.startMinute}${
-    //         event.startAmPm?.toLowerCase() || "am"
-    //       }`
-    //     )
-    // );
+    let startDate = new Date(event.start);
+    console.log("StartDate", startDate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate = new Date(
+      startDate.getTime() +
+        parseDaytime(
+          `${event.startHour}:${event.startMinute}${
+            event.startAmPm?.toLowerCase() || "am"
+          }`
+        )
+    );
 
-    // let endDate = new Date(event.end);
-    // endDate.setHours(0);
-    // endDate.setMinutes(0);
-    // endDate = new Date(
-    //   endDate.getTime() +
-    //     parseDaytime(
-    //       `${event.endHour}:${event.endMinute}${
-    //         event.endAmPm?.toLowerCase() || "am"
-    //       }`
-    //     )
-    // );
-    // event.start = startDate;
-    // event.end = endDate;
+    let endDate = new Date(event.end);
+    endDate.setHours(0);
+    endDate.setMinutes(0);
+    endDate = new Date(
+      endDate.getTime() +
+        parseDaytime(
+          `${event.endHour}:${event.endMinute}${
+            event.endAmPm?.toLowerCase() || "am"
+          }`
+        )
+    );
+    event.start = startDate;
+    event.end = endDate;
     console.log("event to save", event);
 
     await client.mutate({
@@ -145,6 +146,7 @@ export const saveEvent = async () => {
   let data;
   editEvent.update(async (event) => {
     let startDate = new Date(event.start);
+    console.log("startDate", startDate);
     startDate.setHours(0);
     startDate.setMinutes(0);
     startDate = new Date(

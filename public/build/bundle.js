@@ -33012,8 +33012,8 @@ var app = (function () {
         .substr(0, time.length - 2)
         .split(":")
         .map(Number);
-      if (time.includes("pm") && hours !== 12) hours += 12;
-      if (time.includes("am") && hours === 12) hours -= 12;
+      if (time?.toLowerCase().includes("pm") && hours !== 12) hours += 12;
+      if (time?.toLowerCase().includes("am") && hours === 12) hours -= 12;
       console.log("hours", hours);
       return 1000 /*ms*/ * 60 /*s*/ * (hours * 60 + minutes);
     };
@@ -33054,31 +33054,32 @@ var app = (function () {
 
     const updateEvent = async () => {
       editEvent.update(async (event) => {
-        // let startDate = new Date(event.start);
-        // startDate.setHours(0);
-        // startDate.setMinutes(0);
-        // startDate = new Date(
-        //   startDate.getTime() +
-        //     parseDaytime(
-        //       `${event.startHour}:${event.startMinute}${
-        //         event.startAmPm?.toLowerCase() || "am"
-        //       }`
-        //     )
-        // );
+        let startDate = new Date(event.start);
+        console.log("StartDate", startDate);
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        startDate = new Date(
+          startDate.getTime() +
+            parseDaytime(
+              `${event.startHour}:${event.startMinute}${
+            event.startAmPm?.toLowerCase() || "am"
+          }`
+            )
+        );
 
-        // let endDate = new Date(event.end);
-        // endDate.setHours(0);
-        // endDate.setMinutes(0);
-        // endDate = new Date(
-        //   endDate.getTime() +
-        //     parseDaytime(
-        //       `${event.endHour}:${event.endMinute}${
-        //         event.endAmPm?.toLowerCase() || "am"
-        //       }`
-        //     )
-        // );
-        // event.start = startDate;
-        // event.end = endDate;
+        let endDate = new Date(event.end);
+        endDate.setHours(0);
+        endDate.setMinutes(0);
+        endDate = new Date(
+          endDate.getTime() +
+            parseDaytime(
+              `${event.endHour}:${event.endMinute}${
+            event.endAmPm?.toLowerCase() || "am"
+          }`
+            )
+        );
+        event.start = startDate;
+        event.end = endDate;
         console.log("event to save", event);
 
         await client.mutate({
@@ -33121,6 +33122,7 @@ var app = (function () {
       let data;
       editEvent.update(async (event) => {
         let startDate = new Date(event.start);
+        console.log("startDate", startDate);
         startDate.setHours(0);
         startDate.setMinutes(0);
         startDate = new Date(
@@ -33259,7 +33261,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (72:0) {#if showModal}
+    // (69:0) {#if showModal}
     function create_if_block$2(ctx) {
     	let current;
 
@@ -33313,14 +33315,14 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(72:0) {#if showModal}",
+    		source: "(69:0) {#if showModal}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (103:12) <DatePicker bind:selected={$editEvent.start}>
+    // (100:12) <DatePicker bind:selected={$editEvent.start}>
     function create_default_slot_2(ctx) {
     	let div2;
     	let div0;
@@ -33338,9 +33340,9 @@ var app = (function () {
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 104, 16, 3028);
-    			add_location(div1, file$a, 107, 16, 3147);
-    			add_location(div2, file$a, 103, 14, 3006);
+    			add_location(div0, file$a, 101, 16, 3071);
+    			add_location(div1, file$a, 104, 16, 3190);
+    			add_location(div2, file$a, 100, 14, 3049);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33361,14 +33363,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(103:12) <DatePicker bind:selected={$editEvent.start}>",
+    		source: "(100:12) <DatePicker bind:selected={$editEvent.start}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (117:16) {#each hours as hour}
+    // (114:16) {#each hours as hour}
     function create_each_block_5(ctx) {
     	let option;
     	let t_value = /*hour*/ ctx[30] + "";
@@ -33381,7 +33383,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*hour*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$a, 117, 18, 3488);
+    			add_location(option, file$a, 114, 18, 3531);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33397,14 +33399,14 @@ var app = (function () {
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(117:16) {#each hours as hour}",
+    		source: "(114:16) {#each hours as hour}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (127:16) {#each minutes as minute}
+    // (124:16) {#each minutes as minute}
     function create_each_block_4(ctx) {
     	let option;
     	let t_value = /*minute*/ ctx[27] + "";
@@ -33417,7 +33419,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*minute*/ ctx[27];
     			option.value = option.__value;
-    			add_location(option, file$a, 127, 18, 3884);
+    			add_location(option, file$a, 124, 18, 3927);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33433,14 +33435,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(127:16) {#each minutes as minute}",
+    		source: "(124:16) {#each minutes as minute}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (135:16) {#each ampm as value}
+    // (132:16) {#each ampm as value}
     function create_each_block_3(ctx) {
     	let option;
     	let t_value = /*value*/ ctx[24] + "";
@@ -33453,7 +33455,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*value*/ ctx[24];
     			option.value = option.__value;
-    			add_location(option, file$a, 135, 18, 4207);
+    			add_location(option, file$a, 132, 18, 4255);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33469,14 +33471,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(135:16) {#each ampm as value}",
+    		source: "(132:16) {#each ampm as value}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (153:12) <DatePicker bind:selected={$editEvent.end}>
+    // (150:12) <DatePicker bind:selected={$editEvent.end}>
     function create_default_slot_1(ctx) {
     	let div2;
     	let div0;
@@ -33494,9 +33496,9 @@ var app = (function () {
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 154, 16, 4704);
-    			add_location(div1, file$a, 155, 16, 4785);
-    			add_location(div2, file$a, 153, 14, 4682);
+    			add_location(div0, file$a, 151, 16, 4752);
+    			add_location(div1, file$a, 152, 16, 4833);
+    			add_location(div2, file$a, 150, 14, 4730);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33517,14 +33519,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(153:12) <DatePicker bind:selected={$editEvent.end}>",
+    		source: "(150:12) <DatePicker bind:selected={$editEvent.end}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (165:16) {#each hours as hour}
+    // (162:16) {#each hours as hour}
     function create_each_block_2(ctx) {
     	let option;
     	let t_value = /*hour*/ ctx[30] + "";
@@ -33537,7 +33539,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*hour*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$a, 165, 18, 5124);
+    			add_location(option, file$a, 162, 18, 5172);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33553,14 +33555,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(165:16) {#each hours as hour}",
+    		source: "(162:16) {#each hours as hour}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (175:16) {#each minutes as minute}
+    // (172:16) {#each minutes as minute}
     function create_each_block_1(ctx) {
     	let option;
     	let t_value = /*minute*/ ctx[27] + "";
@@ -33573,7 +33575,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*minute*/ ctx[27];
     			option.value = option.__value;
-    			add_location(option, file$a, 175, 18, 5518);
+    			add_location(option, file$a, 172, 18, 5566);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33589,14 +33591,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(175:16) {#each minutes as minute}",
+    		source: "(172:16) {#each minutes as minute}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (183:16) {#each ampm as value}
+    // (180:16) {#each ampm as value}
     function create_each_block$4(ctx) {
     	let option;
     	let t_value = /*value*/ ctx[24] + "";
@@ -33609,7 +33611,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*value*/ ctx[24];
     			option.value = option.__value;
-    			add_location(option, file$a, 183, 18, 5844);
+    			add_location(option, file$a, 180, 18, 5892);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33625,14 +33627,14 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(183:16) {#each ampm as value}",
+    		source: "(180:16) {#each ampm as value}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (75:4) <div slot="body">
+    // (72:4) <div slot="body">
     function create_body_slot(ctx) {
     	let div0;
     	let div1;
@@ -33654,7 +33656,6 @@ var app = (function () {
     	let select1;
     	let t8;
     	let select2;
-    	let select2_value_value;
     	let t9;
     	let div10;
     	let div9;
@@ -33700,7 +33701,7 @@ var app = (function () {
     		});
 
     	function datepicker0_selected_binding(value) {
-    		/*datepicker0_selected_binding*/ ctx[17].call(null, value);
+    		/*datepicker0_selected_binding*/ ctx[16].call(null, value);
     	}
 
     	let datepicker0_props = {
@@ -33852,56 +33853,57 @@ var app = (function () {
     			}
 
     			attr_dev(div1, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div1, file$a, 75, 6, 2139);
+    			add_location(div1, file$a, 72, 6, 2182);
     			attr_dev(div2, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div2, file$a, 84, 6, 2394);
+    			add_location(div2, file$a, 81, 6, 2437);
     			attr_dev(label0, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label0, file$a, 96, 10, 2730);
+    			add_location(label0, file$a, 93, 10, 2773);
     			attr_dev(select0, "name", "hours");
     			attr_dev(select0, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
-    			if (/*$editEvent*/ ctx[4].startHour === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[18].call(select0));
-    			add_location(select0, file$a, 112, 14, 3262);
+    			if (/*$editEvent*/ ctx[4].startHour === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[17].call(select0));
+    			add_location(select0, file$a, 109, 14, 3305);
     			attr_dev(span0, "class", "mr-3");
-    			add_location(span0, file$a, 120, 14, 3587);
+    			add_location(span0, file$a, 117, 14, 3630);
     			attr_dev(select1, "name", "minutes");
     			attr_dev(select1, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
-    			if (/*$editEvent*/ ctx[4].startMinute === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[19].call(select1));
-    			add_location(select1, file$a, 121, 14, 3629);
+    			if (/*$editEvent*/ ctx[4].startMinute === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[18].call(select1));
+    			add_location(select1, file$a, 118, 14, 3672);
     			attr_dev(select2, "name", "ampm");
     			attr_dev(select2, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
-    			add_location(select2, file$a, 130, 14, 3987);
+    			if (/*$editEvent*/ ctx[4].startAmPm === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[19].call(select2));
+    			add_location(select2, file$a, 127, 14, 4030);
     			attr_dev(div3, "class", "flex ml-4 calInput");
-    			add_location(div3, file$a, 111, 12, 3215);
+    			add_location(div3, file$a, 108, 12, 3258);
     			attr_dev(div4, "class", "border-gray-300 flex mr-4");
-    			add_location(div4, file$a, 101, 10, 2894);
-    			add_location(div5, file$a, 95, 8, 2714);
+    			add_location(div4, file$a, 98, 10, 2937);
+    			add_location(div5, file$a, 92, 8, 2757);
     			attr_dev(div6, "class", "flex w-full");
-    			add_location(div6, file$a, 94, 6, 2680);
+    			add_location(div6, file$a, 91, 6, 2723);
     			attr_dev(label1, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label1, file$a, 146, 10, 4410);
+    			add_location(label1, file$a, 143, 10, 4458);
     			attr_dev(select3, "name", "hours");
     			attr_dev(select3, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].endHour === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[21].call(select3));
-    			add_location(select3, file$a, 160, 14, 4900);
+    			add_location(select3, file$a, 157, 14, 4948);
     			attr_dev(span1, "class", "mr-3");
-    			add_location(span1, file$a, 168, 14, 5223);
+    			add_location(span1, file$a, 165, 14, 5271);
     			attr_dev(select4, "name", "minutes");
     			attr_dev(select4, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
     			if (/*$editEvent*/ ctx[4].endMinute === void 0) add_render_callback(() => /*select4_change_handler*/ ctx[22].call(select4));
-    			add_location(select4, file$a, 169, 14, 5265);
+    			add_location(select4, file$a, 166, 14, 5313);
     			attr_dev(select5, "name", "ampm");
     			attr_dev(select5, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].endAmPm === void 0) add_render_callback(() => /*select5_change_handler*/ ctx[23].call(select5));
-    			add_location(select5, file$a, 178, 14, 5621);
+    			add_location(select5, file$a, 175, 14, 5669);
     			attr_dev(div7, "class", "flex ml-4 calInput");
-    			add_location(div7, file$a, 159, 12, 4853);
+    			add_location(div7, file$a, 156, 12, 4901);
     			attr_dev(div8, "class", "border-gray-300 flex mr-4");
-    			add_location(div8, file$a, 151, 10, 4572);
-    			add_location(div9, file$a, 145, 8, 4394);
+    			add_location(div8, file$a, 148, 10, 4620);
+    			add_location(div9, file$a, 142, 8, 4442);
     			attr_dev(div10, "class", "flex w-full");
-    			add_location(div10, file$a, 144, 6, 4360);
+    			add_location(div10, file$a, 141, 6, 4408);
     			attr_dev(div0, "slot", "body");
-    			add_location(div0, file$a, 74, 4, 2115);
+    			add_location(div0, file$a, 71, 4, 2158);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -33943,8 +33945,7 @@ var app = (function () {
     				each_blocks_3[i].m(select2, null);
     			}
 
-    			select2_value_value = /*$editEvent*/ ctx[4].startAmPm;
-    			select_option(select2, select2_value_value);
+    			select_option(select2, /*$editEvent*/ ctx[4].startAmPm);
     			append_dev(div0, t9);
     			append_dev(div0, div10);
     			append_dev(div10, div9);
@@ -33983,8 +33984,9 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[18]),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[19]),
+    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[17]),
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[18]),
+    					listen_dev(select2, "change", /*select2_change_handler*/ ctx[19]),
     					listen_dev(select3, "change", /*select3_change_handler*/ ctx[21]),
     					listen_dev(select4, "change", /*select4_change_handler*/ ctx[22]),
     					listen_dev(select5, "change", /*select5_change_handler*/ ctx[23])
@@ -34094,8 +34096,8 @@ var app = (function () {
     				each_blocks_3.length = each_value_3.length;
     			}
 
-    			if (!current || dirty[0] & /*$editEvent*/ 16 && select2_value_value !== (select2_value_value = /*$editEvent*/ ctx[4].startAmPm)) {
-    				select_option(select2, select2_value_value);
+    			if (dirty[0] & /*$editEvent, hours*/ 48) {
+    				select_option(select2, /*$editEvent*/ ctx[4].startAmPm);
     			}
 
     			const datepicker1_changes = {};
@@ -34232,14 +34234,14 @@ var app = (function () {
     		block,
     		id: create_body_slot.name,
     		type: "slot",
-    		source: "(75:4) <div slot=\\\"body\\\">",
+    		source: "(72:4) <div slot=\\\"body\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (195:4) <div slot="actions" class="w-full flex justify-end">
+    // (192:4) <div slot="actions" class="w-full flex justify-end">
     function create_actions_slot(ctx) {
     	let div;
     	let t;
@@ -34272,7 +34274,7 @@ var app = (function () {
     			create_component(outlinebutton1.$$.fragment);
     			attr_dev(div, "slot", "actions");
     			attr_dev(div, "class", "w-full flex justify-end");
-    			add_location(div, file$a, 194, 4, 6007);
+    			add_location(div, file$a, 191, 4, 6055);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -34304,14 +34306,14 @@ var app = (function () {
     		block,
     		id: create_actions_slot.name,
     		type: "slot",
-    		source: "(195:4) <div slot=\\\"actions\\\" class=\\\"w-full flex justify-end\\\">",
+    		source: "(192:4) <div slot=\\\"actions\\\" class=\\\"w-full flex justify-end\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (73:2) <Modal title={modalTitle} {onClose}>
+    // (70:2) <Modal title={modalTitle} {onClose}>
     function create_default_slot$1(ctx) {
     	let t;
 
@@ -34334,7 +34336,7 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(73:2) <Modal title={modalTitle} {onClose}>",
+    		source: "(70:2) <Modal title={modalTitle} {onClose}>",
     		ctx
     	});
 
@@ -34420,11 +34422,6 @@ var app = (function () {
     	let { modalClosed } = $$props;
     	let isEdit = false;
     	let modalTitle = "Add Calendar Event";
-
-    	const getHours = hours => {
-    		return hours > 12 ? 12 - hours : hours;
-    	};
-
     	let formattedEndDate;
     	let formattedStartDate;
 
@@ -34441,8 +34438,15 @@ var app = (function () {
 
     	const parseDaytime = time => {
     		let [hours, minutes] = time.substr(0, time.length - 2).split(":").map(Number);
-    		if (time.includes("pm") && hours !== 12) hours += 12;
-    		if (time.includes("am") && hours === 12) hours -= 12;
+
+    		if ((time === null || time === void 0
+    		? void 0
+    		: time.toLowerCase().includes("pm")) && hours !== 12) hours += 12;
+
+    		if ((time === null || time === void 0
+    		? void 0
+    		: time.toLowerCase().includes("am")) && hours === 12) hours -= 12;
+
     		console.log("hours", hours);
     		return 1000 * 60 * (hours * 60 + minutes); /*ms*/ /*s*/
     	};
@@ -34497,6 +34501,12 @@ var app = (function () {
     		$$invalidate(5, hours);
     	}
 
+    	function select2_change_handler() {
+    		$editEvent.startAmPm = select_value(this);
+    		editEvent.set($editEvent);
+    		$$invalidate(5, hours);
+    	}
+
     	function datepicker1_selected_binding(value) {
     		$editEvent.end = value;
     		editEvent.set($editEvent);
@@ -34543,7 +34553,6 @@ var app = (function () {
     		modalClosed,
     		isEdit,
     		modalTitle,
-    		getHours,
     		formattedEndDate,
     		formattedStartDate,
     		setShowModal,
@@ -34601,12 +34610,12 @@ var app = (function () {
     		descriptionChanged,
     		modalClosed,
     		isEdit,
-    		getHours,
     		setShowModal,
     		parseDaytime,
     		datepicker0_selected_binding,
     		select0_change_handler,
     		select1_change_handler,
+    		select2_change_handler,
     		datepicker1_selected_binding,
     		select3_change_handler,
     		select4_change_handler,
@@ -34656,7 +34665,7 @@ var app = (function () {
     const { console: console_1$1 } = globals;
     const file$b = "src/pages/calendar.svelte";
 
-    // (108:0) {#if showModal}
+    // (142:0) {#if showModal}
     function create_if_block$3(ctx) {
     	let current;
 
@@ -34699,7 +34708,7 @@ var app = (function () {
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(108:0) {#if showModal}",
+    		source: "(142:0) {#if showModal}",
     		ctx
     	});
 
@@ -34733,7 +34742,7 @@ var app = (function () {
     			t1 = space();
     			create_component(button.$$.fragment);
     			attr_dev(div, "class", "calendar");
-    			add_location(div, file$b, 110, 0, 3498);
+    			add_location(div, file$b, 144, 0, 4473);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -34742,7 +34751,7 @@ var app = (function () {
     			if (if_block) if_block.m(target, anchor);
     			insert_dev(target, t0, anchor);
     			insert_dev(target, div, anchor);
-    			/*div_binding*/ ctx[12](div);
+    			/*div_binding*/ ctx[14](div);
     			insert_dev(target, t1, anchor);
     			mount_component(button, target, anchor);
     			current = true;
@@ -34786,7 +34795,7 @@ var app = (function () {
     			if (if_block) if_block.d(detaching);
     			if (detaching) detach_dev(t0);
     			if (detaching) detach_dev(div);
-    			/*div_binding*/ ctx[12](null);
+    			/*div_binding*/ ctx[14](null);
     			if (detaching) detach_dev(t1);
     			destroy_component(button, detaching);
     		}
@@ -34845,11 +34854,48 @@ var app = (function () {
     		clear();
     	};
 
+    	const getTime = date => {
+    		let ampm;
+    		const time = date.toLocaleTimeString();
+    		let [hours, minutes] = time.split(":").map(Number);
+
+    		if (time.toLocaleLowerCase().includes("am") || time.toLocaleLowerCase().includes("pm")) {
+    			ampm = time.toLocaleLowerCase().includes("am") ? "AM" : "PM";
+    		} else {
+    			if (hours > 12) {
+    				hours = hours - 12;
+    				ampm = "PM";
+    			} else {
+    				ampm = "AM";
+    			}
+
+    			if (hours === 0) {
+    				hours = 12;
+    			}
+    		}
+
+    		return { hours, minutes: minutes.toString(), ampm };
+    	};
+
+    	const getTimes = event => {
+    		const { hours: startHour, minutes: startMinute, ampm: startAmPm } = getTime(event.start);
+    		const { hours: endHour, minutes: endMinute, ampm: endAmPm } = getTime(event.end);
+
+    		return {
+    			startHour,
+    			startMinute,
+    			startAmPm,
+    			endHour,
+    			endMinute,
+    			endAmPm
+    		};
+    	};
+
     	const eventClicked = info => {
     		const id = +info.event.id;
     		console.log("events", $calendarEvents);
     		const event = $calendarEvents.find(e => +e.id === +id);
-    		editEvent.update(() => event);
+    		editEvent.update(() => ({ ...event, ...getTimes(event) }));
     		$$invalidate(0, showModal = true);
     	};
 
@@ -34958,6 +35004,8 @@ var app = (function () {
     		activeStart,
     		activeEnd,
     		modalClosed,
+    		getTime,
+    		getTimes,
     		eventClicked,
     		updateDraggedEvent,
     		setShowModal,
@@ -34989,6 +35037,8 @@ var app = (function () {
     		activeStart,
     		activeEnd,
     		$calendarEvents,
+    		getTime,
+    		getTimes,
     		eventClicked,
     		updateDraggedEvent,
     		div_binding

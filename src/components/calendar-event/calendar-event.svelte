@@ -19,9 +19,6 @@
 
   let modalTitle = "Add Calendar Event";
 
-  const getHours = (hours) => {
-    return hours > 12 ? 12 - hours : hours;
-  };
   let formattedEndDate: string;
   let formattedStartDate: string;
 
@@ -39,8 +36,8 @@
       .substr(0, time.length - 2)
       .split(":")
       .map(Number);
-    if (time.includes("pm") && hours !== 12) hours += 12;
-    if (time.includes("am") && hours === 12) hours -= 12;
+    if (time?.toLowerCase().includes("pm") && hours !== 12) hours += 12;
+    if (time?.toLowerCase().includes("am") && hours === 12) hours -= 12;
     console.log("hours", hours);
     return 1000 /*ms*/ * 60 /*s*/ * (hours * 60 + minutes);
   };
@@ -142,7 +139,7 @@
               <select
                 name="ampm"
                 class="bg-transparent appearance-none hover:bg-gray-100 border-0"
-                value={$editEvent.startAmPm}>
+                bind:value={$editEvent.startAmPm}>
                 {#each ampm as value}
                   <option {value}>{value}</option>
                 {/each}
