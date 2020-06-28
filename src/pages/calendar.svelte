@@ -117,23 +117,25 @@
     }));
     await updateEvent();
   };
-  user.subscribe((user) => {
-    if (user.calendars) {
-      getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
-    }
-  });
 
   onMount(() => {
     calendar = new Calendar(calendarDiv, {
       plugins: [dayGridPlugin, interactionPlugin],
+
       selectable: true,
       events: [],
       editable: true,
       eventClick: eventClicked,
-
-      height: () => {
-        let intViewportHeight = window.innerHeight;
-        return intViewportHeight - 100;
+      height: "100%",
+      viewDidMount: (info) => {
+        activeStart = info.view.activeStart;
+        activeEnd = info.view.activeEnd;
+        user.subscribe((user) => {
+          if (user.calendars) {
+            console.log("activeStart", activeStart);
+            getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
+          }
+        });
       },
     });
     calendar.on("dateClick", function (info) {
@@ -153,13 +155,21 @@
       endDate = info.end;
       showModal = true;
     });
-    calendar.on("viewSkeletonRender", (info) => {
-      (activeStart = info.view.activeStart), (activeEnd = info.view.activeEnd);
+    calendar.on("viewDidMount", (info) => {
+      activeStart = info.view.activeStart;
+      activeEnd = info.view.activeEnd;
+      user.subscribe((user) => {
+        if (user.calendars) {
+          console.log("activeStart", activeStart);
+          getCalendarEvents(activeStart, activeEnd, user.calendars[0].id);
+        }
+      });
     });
     calendar.on("eventDrop", updateDraggedEvent);
 
     calendar.render();
   });
+
   const setShowModal = () => {
     showModal = true;
   };
@@ -169,7 +179,7 @@
 {#if showModal}
   <CalendarEvent {showModal} {modalClosed} />
 {/if}
-<div class="calendar" bind:this={calendarDiv} />
+<div class="calendar h-full w-full" bind:this={calendarDiv} />
 <Button
   type="button"
   size="small"

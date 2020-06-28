@@ -8,6 +8,7 @@ import css from "rollup-plugin-css-only";
 import autoPreprocess from "svelte-preprocess";
 import { config } from "dotenv";
 import replace from "@rollup/plugin-replace";
+import nodePolyfills from "rollup-plugin-node-polyfills";
 
 const proc = config().parsed;
 
@@ -56,7 +57,7 @@ export default {
     // consult the documentation for details:
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
     resolve({
-      browser: true,
+      mainFields: ["browser", "jsnext", "module", "main"],
       dedupe: ["svelte"],
     }),
     commonjs(),

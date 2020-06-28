@@ -21,7 +21,7 @@
 
 <Tailwindcss />
 
-<main>
+<main class="h-full">
 
   <div class="w-full h-full">
     {#if $user.loggingIn}
@@ -29,7 +29,7 @@
         <Spinner />
       </div>
     {:else}
-      <div>
+      <div class="h-full">
         <OutlineButton onClick={logout} />
         <Router>
           <Route path="login" component={Login} />
