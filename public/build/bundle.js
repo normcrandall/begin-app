@@ -1168,7 +1168,7 @@ var app = (function () {
         return r;
     }
 
-    // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2317')
+    /* istanbul ignore next (See: https://github.com/graphql/graphql-js/issues/2317) */
     var nodejsCustomInspectSymbol = typeof Symbol === 'function' && typeof Symbol.for === 'function' ? Symbol.for('nodejs.util.inspect.custom') : undefined;
 
     function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1294,22 +1294,16 @@ var app = (function () {
       return tag;
     }
 
-    function invariant(condition, message) {
-      var booleanCondition = Boolean(condition); // istanbul ignore else (See transformation done in './resources/inlineInvariant.js')
-
-      if (!booleanCondition) {
-        throw new Error(message != null ? message : 'Unexpected invariant triggered.');
-      }
-    }
-
     /**
-     * The `defineInspect()` function defines `inspect()` prototype method as alias of `toJSON`
+     * The `defineToJSON()` function defines toJSON() and inspect() prototype
+     * methods, if no function provided they become aliases for toString().
      */
 
-    function defineInspect(classObject) {
-      var fn = classObject.prototype.toJSON;
-      typeof fn === 'function' || invariant(0);
-      classObject.prototype.inspect = fn; // istanbul ignore else (See: 'https://github.com/graphql/graphql-js/issues/2317')
+    function defineToJSON(classObject) {
+      var fn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : classObject.prototype.toString;
+      classObject.prototype.toJSON = fn;
+      classObject.prototype.inspect = fn;
+      /* istanbul ignore else (See: https://github.com/graphql/graphql-js/issues/2317) */
 
       if (nodejsCustomInspectSymbol) {
         classObject.prototype[nodejsCustomInspectSymbol] = fn;
@@ -1320,108 +1314,94 @@ var app = (function () {
      * Contains a range of UTF-8 character offsets and token references that
      * identify the region of the source from which the AST derived.
      */
-    var Location = /*#__PURE__*/function () {
-      /**
-       * The character offset at which this Node begins.
-       */
+    var Location =
+    /**
+     * The character offset at which this Node begins.
+     */
 
-      /**
-       * The character offset at which this Node ends.
-       */
+    /**
+     * The character offset at which this Node ends.
+     */
 
-      /**
-       * The Token at which this Node begins.
-       */
+    /**
+     * The Token at which this Node begins.
+     */
 
-      /**
-       * The Token at which this Node ends.
-       */
+    /**
+     * The Token at which this Node ends.
+     */
 
-      /**
-       * The Source document the AST represents.
-       */
-      function Location(startToken, endToken, source) {
-        this.start = startToken.start;
-        this.end = endToken.end;
-        this.startToken = startToken;
-        this.endToken = endToken;
-        this.source = source;
-      }
+    /**
+     * The Source document the AST represents.
+     */
+    function Location(startToken, endToken, source) {
+      this.start = startToken.start;
+      this.end = endToken.end;
+      this.startToken = startToken;
+      this.endToken = endToken;
+      this.source = source;
+    }; // Print a simplified form when appearing in JSON/util.inspect.
 
-      var _proto = Location.prototype;
-
-      _proto.toJSON = function toJSON() {
-        return {
-          start: this.start,
-          end: this.end
-        };
+    defineToJSON(Location, function () {
+      return {
+        start: this.start,
+        end: this.end
       };
-
-      return Location;
-    }(); // Print a simplified form when appearing in `inspect` and `util.inspect`.
-
-    defineInspect(Location);
+    });
     /**
      * Represents a range of characters represented by a lexical token
      * within a Source.
      */
 
-    var Token = /*#__PURE__*/function () {
-      /**
-       * The kind of Token.
-       */
+    var Token =
+    /**
+     * The kind of Token.
+     */
 
-      /**
-       * The character offset at which this Node begins.
-       */
+    /**
+     * The character offset at which this Node begins.
+     */
 
-      /**
-       * The character offset at which this Node ends.
-       */
+    /**
+     * The character offset at which this Node ends.
+     */
 
-      /**
-       * The 1-indexed line number on which this Token appears.
-       */
+    /**
+     * The 1-indexed line number on which this Token appears.
+     */
 
-      /**
-       * The 1-indexed column number at which this Token begins.
-       */
+    /**
+     * The 1-indexed column number at which this Token begins.
+     */
 
-      /**
-       * For non-punctuation tokens, represents the interpreted value of the token.
-       */
+    /**
+     * For non-punctuation tokens, represents the interpreted value of the token.
+     */
 
-      /**
-       * Tokens exist as nodes in a double-linked-list amongst all tokens
-       * including ignored tokens. <SOF> is always the first node and <EOF>
-       * the last.
-       */
-      function Token(kind, start, end, line, column, prev, value) {
-        this.kind = kind;
-        this.start = start;
-        this.end = end;
-        this.line = line;
-        this.column = column;
-        this.value = value;
-        this.prev = prev;
-        this.next = null;
-      }
+    /**
+     * Tokens exist as nodes in a double-linked-list amongst all tokens
+     * including ignored tokens. <SOF> is always the first node and <EOF>
+     * the last.
+     */
+    function Token(kind, start, end, line, column, prev, value) {
+      this.kind = kind;
+      this.start = start;
+      this.end = end;
+      this.line = line;
+      this.column = column;
+      this.value = value;
+      this.prev = prev;
+      this.next = null;
+    }; // Print a simplified form when appearing in JSON/util.inspect.
 
-      var _proto2 = Token.prototype;
-
-      _proto2.toJSON = function toJSON() {
-        return {
-          kind: this.kind,
-          value: this.value,
-          line: this.line,
-          column: this.column
-        };
+    defineToJSON(Token, function () {
+      return {
+        kind: this.kind,
+        value: this.value,
+        line: this.line,
+        column: this.column
       };
-
-      return Token;
-    }(); // Print a simplified form when appearing in `inspect` and `util.inspect`.
-
-    defineInspect(Token);
+    });
     /**
      * @internal
      */
@@ -1780,7 +1760,7 @@ var app = (function () {
         }
         return InvariantError;
     }(Error));
-    function invariant$1(condition, message) {
+    function invariant(condition, message) {
         if (!condition) {
             throw new InvariantError(message);
         }
@@ -1793,7 +1773,7 @@ var app = (function () {
     (function (invariant) {
         invariant.warn = wrapConsoleMethod("warn");
         invariant.error = wrapConsoleMethod("error");
-    })(invariant$1 || (invariant$1 = {}));
+    })(invariant || (invariant = {}));
     // Code that uses ts-invariant with rollup-plugin-invariant may want to
     // import this process stub to avoid errors evaluating process.env.NODE_ENV.
     // However, because most ESM-to-CJS compilers will rewrite the process import
@@ -2191,7 +2171,7 @@ var app = (function () {
             var evaledValue = false;
             if (ifArgument.value.kind === 'Variable') {
                 evaledValue = variables[ifArgument.value.name.value];
-                process.env.NODE_ENV === "production" ? invariant$1(evaledValue !== void 0, 13) : invariant$1(evaledValue !== void 0, "Invalid variable referenced in @" + directive.name.value + " directive.");
+                process.env.NODE_ENV === "production" ? invariant(evaledValue !== void 0, 13) : invariant(evaledValue !== void 0, "Invalid variable referenced in @" + directive.name.value + " directive.");
             }
             else {
                 evaledValue = ifArgument.value.value;
@@ -2224,12 +2204,12 @@ var app = (function () {
         return directives ? directives.filter(isInclusionDirective).map(function (directive) {
             var directiveArguments = directive.arguments;
             var directiveName = directive.name.value;
-            process.env.NODE_ENV === "production" ? invariant$1(directiveArguments && directiveArguments.length === 1, 14) : invariant$1(directiveArguments && directiveArguments.length === 1, "Incorrect number of arguments for the @" + directiveName + " directive.");
+            process.env.NODE_ENV === "production" ? invariant(directiveArguments && directiveArguments.length === 1, 14) : invariant(directiveArguments && directiveArguments.length === 1, "Incorrect number of arguments for the @" + directiveName + " directive.");
             var ifArgument = directiveArguments[0];
-            process.env.NODE_ENV === "production" ? invariant$1(ifArgument.name && ifArgument.name.value === 'if', 15) : invariant$1(ifArgument.name && ifArgument.name.value === 'if', "Invalid argument for the @" + directiveName + " directive.");
+            process.env.NODE_ENV === "production" ? invariant(ifArgument.name && ifArgument.name.value === 'if', 15) : invariant(ifArgument.name && ifArgument.name.value === 'if', "Invalid argument for the @" + directiveName + " directive.");
             var ifValue = ifArgument.value;
-            process.env.NODE_ENV === "production" ? invariant$1(ifValue &&
-                (ifValue.kind === 'Variable' || ifValue.kind === 'BooleanValue'), 16) : invariant$1(ifValue &&
+            process.env.NODE_ENV === "production" ? invariant(ifValue &&
+                (ifValue.kind === 'Variable' || ifValue.kind === 'BooleanValue'), 16) : invariant(ifValue &&
                 (ifValue.kind === 'Variable' || ifValue.kind === 'BooleanValue'), "Argument for the @" + directiveName + " directive must be a variable or a boolean value.");
             return { directive: directive, ifArgument: ifArgument };
         }) : [];
@@ -2248,7 +2228,7 @@ var app = (function () {
             }
         });
         if (typeof actualFragmentName === 'undefined') {
-            process.env.NODE_ENV === "production" ? invariant$1(fragments.length === 1, 12) : invariant$1(fragments.length === 1, "Found " + fragments.length + " fragments. `fragmentName` must be provided when there is not exactly 1 fragment.");
+            process.env.NODE_ENV === "production" ? invariant(fragments.length === 1, 12) : invariant(fragments.length === 1, "Found " + fragments.length + " fragments. `fragmentName` must be provided when there is not exactly 1 fragment.");
             actualFragmentName = fragments[0].name.value;
         }
         var query = __assign(__assign({}, document), { definitions: __spreadArrays([
@@ -2288,7 +2268,7 @@ var app = (function () {
         return target;
     }
     function checkDocument(doc) {
-        process.env.NODE_ENV === "production" ? invariant$1(doc && doc.kind === 'Document', 2) : invariant$1(doc && doc.kind === 'Document', "Expecting a parsed GraphQL document. Perhaps you need to wrap the query string in a \"gql\" tag? http://docs.apollostack.com/apollo-client/core.html#gql");
+        process.env.NODE_ENV === "production" ? invariant(doc && doc.kind === 'Document', 2) : invariant(doc && doc.kind === 'Document', "Expecting a parsed GraphQL document. Perhaps you need to wrap the query string in a \"gql\" tag? http://docs.apollostack.com/apollo-client/core.html#gql");
         var operations = doc.definitions
             .filter(function (d) { return d.kind !== 'FragmentDefinition'; })
             .map(function (definition) {
@@ -2297,7 +2277,7 @@ var app = (function () {
             }
             return definition;
         });
-        process.env.NODE_ENV === "production" ? invariant$1(operations.length <= 1, 4) : invariant$1(operations.length <= 1, "Ambiguous GraphQL document: contains " + operations.length + " operations");
+        process.env.NODE_ENV === "production" ? invariant(operations.length <= 1, 4) : invariant(operations.length <= 1, "Ambiguous GraphQL document: contains " + operations.length + " operations");
         return doc;
     }
     function getOperationDefinition(doc) {
@@ -2316,14 +2296,14 @@ var app = (function () {
     }
     function getQueryDefinition(doc) {
         var queryDef = getOperationDefinition(doc);
-        process.env.NODE_ENV === "production" ? invariant$1(queryDef && queryDef.operation === 'query', 6) : invariant$1(queryDef && queryDef.operation === 'query', 'Must contain a query definition.');
+        process.env.NODE_ENV === "production" ? invariant(queryDef && queryDef.operation === 'query', 6) : invariant(queryDef && queryDef.operation === 'query', 'Must contain a query definition.');
         return queryDef;
     }
     function getFragmentDefinition(doc) {
-        process.env.NODE_ENV === "production" ? invariant$1(doc.kind === 'Document', 7) : invariant$1(doc.kind === 'Document', "Expecting a parsed GraphQL document. Perhaps you need to wrap the query string in a \"gql\" tag? http://docs.apollostack.com/apollo-client/core.html#gql");
-        process.env.NODE_ENV === "production" ? invariant$1(doc.definitions.length <= 1, 8) : invariant$1(doc.definitions.length <= 1, 'Fragment must have exactly one definition.');
+        process.env.NODE_ENV === "production" ? invariant(doc.kind === 'Document', 7) : invariant(doc.kind === 'Document', "Expecting a parsed GraphQL document. Perhaps you need to wrap the query string in a \"gql\" tag? http://docs.apollostack.com/apollo-client/core.html#gql");
+        process.env.NODE_ENV === "production" ? invariant(doc.definitions.length <= 1, 8) : invariant(doc.definitions.length <= 1, 'Fragment must have exactly one definition.');
         var fragmentDef = doc.definitions[0];
-        process.env.NODE_ENV === "production" ? invariant$1(fragmentDef.kind === 'FragmentDefinition', 9) : invariant$1(fragmentDef.kind === 'FragmentDefinition', 'Must be a fragment definition.');
+        process.env.NODE_ENV === "production" ? invariant(fragmentDef.kind === 'FragmentDefinition', 9) : invariant(fragmentDef.kind === 'FragmentDefinition', 'Must be a fragment definition.');
         return fragmentDef;
     }
     function getMainDefinition(queryDoc) {
@@ -2515,7 +2495,7 @@ var app = (function () {
             if (willRemove) {
                 if (!directive.arguments ||
                     !directive.arguments.some(function (arg) { return arg.name.value === 'key'; })) {
-                    process.env.NODE_ENV === "production" || invariant$1.warn('Removing an @connection directive even though it does not have a key. ' +
+                    process.env.NODE_ENV === "production" || invariant.warn('Removing an @connection directive even though it does not have a key. ' +
                         'You may want to use the key parameter to specify a store key.');
                 }
             }
@@ -3547,7 +3527,7 @@ var app = (function () {
     var concat = function (first, second) {
         var firstLink = toLink(first);
         if (isTerminating(firstLink)) {
-            process.env.NODE_ENV === "production" || invariant$1.warn(new LinkError("You are calling concat on a terminating link, which will have no effect", firstLink));
+            process.env.NODE_ENV === "production" || invariant.warn(new LinkError("You are calling concat on a terminating link, which will have no effect", firstLink));
             return firstLink;
         }
         var nextLink = toLink(second);
@@ -3854,7 +3834,7 @@ var app = (function () {
         };
         ObservableQuery.prototype.fetchMore = function (fetchMoreOptions) {
             var _this = this;
-            process.env.NODE_ENV === "production" ? invariant$1(fetchMoreOptions.updateQuery, 2) : invariant$1(fetchMoreOptions.updateQuery, 'updateQuery option is required. This function defines how to update the query data with the new results.');
+            process.env.NODE_ENV === "production" ? invariant(fetchMoreOptions.updateQuery, 2) : invariant(fetchMoreOptions.updateQuery, 'updateQuery option is required. This function defines how to update the query data with the new results.');
             var combinedOptions = __assign(__assign({}, (fetchMoreOptions.query ? fetchMoreOptions : __assign(__assign(__assign({}, this.options), fetchMoreOptions), { variables: __assign(__assign({}, this.variables), fetchMoreOptions.variables) }))), { fetchPolicy: 'network-only' });
             var qid = this.queryManager.generateQueryId();
             return this.queryManager
@@ -3898,7 +3878,7 @@ var app = (function () {
                         options.onError(err);
                         return;
                     }
-                    process.env.NODE_ENV === "production" || invariant$1.error('Unhandled GraphQL subscription error', err);
+                    process.env.NODE_ENV === "production" || invariant.error('Unhandled GraphQL subscription error', err);
                 },
             });
             this.subscriptions.add(subscription);
@@ -4046,7 +4026,7 @@ var app = (function () {
         return ObservableQuery;
     }(Observable$1));
     function defaultSubscriptionObserverErrorCallback(error) {
-        process.env.NODE_ENV === "production" || invariant$1.error('Unhandled error', error.message, error.stack);
+        process.env.NODE_ENV === "production" || invariant.error('Unhandled error', error.message, error.stack);
     }
     function iterateObserversSafely(observers, method, argument) {
         var observersWithMethod = [];
@@ -4055,7 +4035,7 @@ var app = (function () {
     }
     function assertNotCacheFirstOrOnly(obsQuery) {
         var fetchPolicy = obsQuery.options.fetchPolicy;
-        process.env.NODE_ENV === "production" ? invariant$1(fetchPolicy !== 'cache-first' && fetchPolicy !== 'cache-only', 3) : invariant$1(fetchPolicy !== 'cache-first' && fetchPolicy !== 'cache-only', 'Queries that specify the cache-first and cache-only fetchPolicies cannot also be polling queries.');
+        process.env.NODE_ENV === "production" ? invariant(fetchPolicy !== 'cache-first' && fetchPolicy !== 'cache-only', 3) : invariant(fetchPolicy !== 'cache-first' && fetchPolicy !== 'cache-only', 'Queries that specify the cache-first and cache-only fetchPolicies cannot also be polling queries.');
     }
 
     var MutationStore = (function () {
@@ -4108,9 +4088,9 @@ var app = (function () {
         };
         QueryStore.prototype.initQuery = function (query) {
             var previousQuery = this.store[query.queryId];
-            process.env.NODE_ENV === "production" ? invariant$1(!previousQuery ||
+            process.env.NODE_ENV === "production" ? invariant(!previousQuery ||
                 previousQuery.document === query.document ||
-                equal(previousQuery.document, query.document), 19) : invariant$1(!previousQuery ||
+                equal(previousQuery.document, query.document), 19) : invariant(!previousQuery ||
                 previousQuery.document === query.document ||
                 equal(previousQuery.document, query.document), 'Internal Error: may not update existing query string in store');
             var isSetVariables = false;
@@ -4262,7 +4242,7 @@ var app = (function () {
                 if (this.resolvers) {
                     return document;
                 }
-                process.env.NODE_ENV === "production" || invariant$1.warn('Found @client directives in a query but no ApolloClient resolvers ' +
+                process.env.NODE_ENV === "production" || invariant.warn('Found @client directives in a query but no ApolloClient resolvers ' +
                     'were specified. This means ApolloClient local resolver handling ' +
                     'has been disabled, and @client directives will be passed through ' +
                     'to your link chain.');
@@ -4280,7 +4260,7 @@ var app = (function () {
                         return cache.config.dataIdFromObject(obj);
                     }
                     else {
-                        process.env.NODE_ENV === "production" ? invariant$1(false, 6) : invariant$1(false, 'To use context.getCacheKey, you need to use a cache that has ' +
+                        process.env.NODE_ENV === "production" ? invariant(false, 6) : invariant(false, 'To use context.getCacheKey, you need to use a cache that has ' +
                             'a configurable dataIdFromObject, like apollo-cache-inmemory.');
                     }
                 } });
@@ -4388,7 +4368,7 @@ var app = (function () {
                             }
                             else {
                                 fragment = fragmentMap[selection.name.value];
-                                process.env.NODE_ENV === "production" ? invariant$1(fragment, 7) : invariant$1(fragment, "No fragment named " + selection.name.value);
+                                process.env.NODE_ENV === "production" ? invariant(fragment, 7) : invariant(fragment, "No fragment named " + selection.name.value);
                             }
                             if (fragment && fragment.typeCondition) {
                                 typeCondition = fragment.typeCondition.name.value;
@@ -4572,8 +4552,8 @@ var app = (function () {
                 return __generator(this, function (_f) {
                     switch (_f.label) {
                         case 0:
-                            process.env.NODE_ENV === "production" ? invariant$1(mutation, 9) : invariant$1(mutation, 'mutation option is required. You must specify your GraphQL document in the mutation option.');
-                            process.env.NODE_ENV === "production" ? invariant$1(!fetchPolicy || fetchPolicy === 'no-cache', 10) : invariant$1(!fetchPolicy || fetchPolicy === 'no-cache', "Mutations only support a 'no-cache' fetchPolicy. If you don't want to disable the cache, remove your fetchPolicy setting to proceed with the default mutation behavior.");
+                            process.env.NODE_ENV === "production" ? invariant(mutation, 9) : invariant(mutation, 'mutation option is required. You must specify your GraphQL document in the mutation option.');
+                            process.env.NODE_ENV === "production" ? invariant(!fetchPolicy || fetchPolicy === 'no-cache', 10) : invariant(!fetchPolicy || fetchPolicy === 'no-cache', "Mutations only support a 'no-cache' fetchPolicy. If you don't want to disable the cache, remove your fetchPolicy setting to proceed with the default mutation behavior.");
                             mutationId = this.generateQueryId();
                             mutation = this.transform(mutation).document;
                             this.setQuery(mutationId, function () { return ({ document: mutation }); });
@@ -4828,11 +4808,11 @@ var app = (function () {
                         observer[method](argument);
                     }
                     catch (e) {
-                        process.env.NODE_ENV === "production" || invariant$1.error(e);
+                        process.env.NODE_ENV === "production" || invariant.error(e);
                     }
                 }
                 else if (method === 'error') {
-                    process.env.NODE_ENV === "production" || invariant$1.error(argument);
+                    process.env.NODE_ENV === "production" || invariant.error(argument);
                 }
             }
             return function (queryStoreValue, newData) {
@@ -4950,7 +4930,7 @@ var app = (function () {
         };
         QueryManager.prototype.watchQuery = function (options, shouldSubscribe) {
             if (shouldSubscribe === void 0) { shouldSubscribe = true; }
-            process.env.NODE_ENV === "production" ? invariant$1(options.fetchPolicy !== 'standby', 11) : invariant$1(options.fetchPolicy !== 'standby', 'client.watchQuery cannot be called with fetchPolicy set to "standby"');
+            process.env.NODE_ENV === "production" ? invariant(options.fetchPolicy !== 'standby', 11) : invariant(options.fetchPolicy !== 'standby', 'client.watchQuery cannot be called with fetchPolicy set to "standby"');
             options.variables = this.getVariables(options.query, options.variables);
             if (typeof options.notifyOnNetworkStatusChange === 'undefined') {
                 options.notifyOnNetworkStatusChange = false;
@@ -4964,11 +4944,11 @@ var app = (function () {
         };
         QueryManager.prototype.query = function (options) {
             var _this = this;
-            process.env.NODE_ENV === "production" ? invariant$1(options.query, 12) : invariant$1(options.query, 'query option is required. You must specify your GraphQL document ' +
+            process.env.NODE_ENV === "production" ? invariant(options.query, 12) : invariant(options.query, 'query option is required. You must specify your GraphQL document ' +
                 'in the query option.');
-            process.env.NODE_ENV === "production" ? invariant$1(options.query.kind === 'Document', 13) : invariant$1(options.query.kind === 'Document', 'You must wrap the query string in a "gql" tag.');
-            process.env.NODE_ENV === "production" ? invariant$1(!options.returnPartialData, 14) : invariant$1(!options.returnPartialData, 'returnPartialData option only supported on watchQuery.');
-            process.env.NODE_ENV === "production" ? invariant$1(!options.pollInterval, 15) : invariant$1(!options.pollInterval, 'pollInterval option only supported on watchQuery.');
+            process.env.NODE_ENV === "production" ? invariant(options.query.kind === 'Document', 13) : invariant(options.query.kind === 'Document', 'You must wrap the query string in a "gql" tag.');
+            process.env.NODE_ENV === "production" ? invariant(!options.returnPartialData, 14) : invariant(!options.returnPartialData, 'returnPartialData option only supported on watchQuery.');
+            process.env.NODE_ENV === "production" ? invariant(!options.pollInterval, 15) : invariant(!options.pollInterval, 'pollInterval option only supported on watchQuery.');
             return new Promise(function (resolve, reject) {
                 var watchedQuery = _this.watchQuery(options, false);
                 _this.fetchQueryRejectFns.set("query:" + watchedQuery.queryId, reject);
@@ -5079,7 +5059,7 @@ var app = (function () {
             return this.fetchQuery(queryId, options);
         };
         QueryManager.prototype.startQuery = function (queryId, options, listener) {
-            process.env.NODE_ENV === "production" || invariant$1.warn("The QueryManager.startQuery method has been deprecated");
+            process.env.NODE_ENV === "production" || invariant.warn("The QueryManager.startQuery method has been deprecated");
             this.addQueryListener(queryId, listener);
             this.fetchQuery(queryId, options)
                 .catch(function () { return undefined; });
@@ -5155,7 +5135,7 @@ var app = (function () {
             var observableQuery;
             if (typeof queryIdOrObservable === 'string') {
                 var foundObserveableQuery = this.getQuery(queryIdOrObservable).observableQuery;
-                process.env.NODE_ENV === "production" ? invariant$1(foundObserveableQuery, 17) : invariant$1(foundObserveableQuery, "ObservableQuery with this id doesn't exist: " + queryIdOrObservable);
+                process.env.NODE_ENV === "production" ? invariant(foundObserveableQuery, 17) : invariant(foundObserveableQuery, "ObservableQuery with this id doesn't exist: " + queryIdOrObservable);
                 observableQuery = foundObserveableQuery;
             }
             else {
@@ -5344,7 +5324,7 @@ var app = (function () {
         QueryManager.prototype.startPollingQuery = function (options, queryId, listener) {
             var _this = this;
             var pollInterval = options.pollInterval;
-            process.env.NODE_ENV === "production" ? invariant$1(pollInterval, 18) : invariant$1(pollInterval, 'Attempted to start a polling query without a polling interval.');
+            process.env.NODE_ENV === "production" ? invariant(pollInterval, 18) : invariant(pollInterval, 'Attempted to start a polling query without a polling interval.');
             if (!this.ssrMode) {
                 var info = this.pollingInfoByQueryId.get(queryId);
                 if (!info) {
@@ -5619,7 +5599,7 @@ var app = (function () {
             if (this.defaultOptions.query) {
                 options = __assign(__assign({}, this.defaultOptions.query), options);
             }
-            process.env.NODE_ENV === "production" ? invariant$1(options.fetchPolicy !== 'cache-and-network', 5) : invariant$1(options.fetchPolicy !== 'cache-and-network', 'The cache-and-network fetchPolicy does not work with client.query, because ' +
+            process.env.NODE_ENV === "production" ? invariant(options.fetchPolicy !== 'cache-and-network', 5) : invariant(options.fetchPolicy !== 'cache-and-network', 'The cache-and-network fetchPolicy does not work with client.query, because ' +
                 'client.query can only return a single result. Please use client.watchQuery ' +
                 'to receive multiple results from the cache and the network, or consider ' +
                 'using a different fetchPolicy, such as cache-first or network-only.');
@@ -5667,7 +5647,7 @@ var app = (function () {
             return execute(this.link, payload);
         };
         ApolloClient.prototype.initQueryManager = function () {
-            process.env.NODE_ENV === "production" || invariant$1.warn('Calling the initQueryManager method is no longer necessary, ' +
+            process.env.NODE_ENV === "production" || invariant.warn('Calling the initQueryManager method is no longer necessary, ' +
                 'and it will be removed from ApolloClient in version 3.0.');
             return this.queryManager;
         };
@@ -6528,9 +6508,9 @@ var app = (function () {
             var _a = obj.__typename, __typename = _a === void 0 ? isRootQuery && 'Query' : _a;
             if (!__typename) {
                 if (shouldWarn()) {
-                    process.env.NODE_ENV === "production" || invariant$1.warn("You're using fragments in your queries, but either don't have the addTypename:\n  true option set in Apollo Client, or you are trying to write a fragment to the store without the __typename.\n   Please turn on the addTypename option and include __typename when writing fragments so that Apollo Client\n   can accurately match fragments.");
-                    process.env.NODE_ENV === "production" || invariant$1.warn('Could not find __typename on Fragment ', typeCondition, obj);
-                    process.env.NODE_ENV === "production" || invariant$1.warn("DEPRECATION WARNING: using fragments without __typename is unsupported behavior " +
+                    process.env.NODE_ENV === "production" || invariant.warn("You're using fragments in your queries, but either don't have the addTypename:\n  true option set in Apollo Client, or you are trying to write a fragment to the store without the __typename.\n   Please turn on the addTypename option and include __typename when writing fragments so that Apollo Client\n   can accurately match fragments.");
+                    process.env.NODE_ENV === "production" || invariant.warn('Could not find __typename on Fragment ', typeCondition, obj);
+                    process.env.NODE_ENV === "production" || invariant.warn("DEPRECATION WARNING: using fragments without __typename is unsupported behavior " +
                         "and will be removed in future versions of Apollo client. You should fix this and set addTypename to true now.");
                 }
                 return 'heuristic';
@@ -6539,7 +6519,7 @@ var app = (function () {
                 return true;
             }
             if (shouldWarn()) {
-                process.env.NODE_ENV === "production" || invariant$1.error('You are using the simple (heuristic) fragment matcher, but your ' +
+                process.env.NODE_ENV === "production" || invariant.error('You are using the simple (heuristic) fragment matcher, but your ' +
                     'queries contain union or interface types. Apollo Client will not be ' +
                     'able to accurately map fragments. To make this error go away, use ' +
                     'the `IntrospectionFragmentMatcher` as described in the docs: ' +
@@ -7022,7 +7002,7 @@ var app = (function () {
                             isClient = selection.directives.some(function (directive) { return directive.name && directive.name.value === 'client'; });
                         }
                         if (!isDefered && !isClient && context.fragmentMatcherFunction) {
-                            process.env.NODE_ENV === "production" || invariant$1.warn("Missing field " + resultFieldKey + " in " + JSON.stringify(result, null, 2).substring(0, 100));
+                            process.env.NODE_ENV === "production" || invariant.warn("Missing field " + resultFieldKey + " in " + JSON.stringify(result, null, 2).substring(0, 100));
                         }
                     }
                 }
@@ -7033,7 +7013,7 @@ var app = (function () {
                     }
                     else {
                         fragment = (fragmentMap || {})[selection.name.value];
-                        process.env.NODE_ENV === "production" ? invariant$1(fragment, 3) : invariant$1(fragment, "No fragment named " + selection.name.value + ".");
+                        process.env.NODE_ENV === "production" ? invariant(fragment, 3) : invariant(fragment, "No fragment named " + selection.name.value + ".");
                     }
                     var matches = true;
                     if (context.fragmentMatcherFunction && fragment.typeCondition) {
@@ -7045,7 +7025,7 @@ var app = (function () {
                         };
                         var match = context.fragmentMatcherFunction(idValue, fragment.typeCondition.name.value, fakeContext);
                         if (!isProduction() && match === 'heuristic') {
-                            process.env.NODE_ENV === "production" || invariant$1.error('WARNING: heuristic fragment matching going on!');
+                            process.env.NODE_ENV === "production" || invariant.error('WARNING: heuristic fragment matching going on!');
                         }
                         matches = !!match;
                     }
@@ -7088,7 +7068,7 @@ var app = (function () {
                 }
                 if (dataIdFromObject) {
                     var semanticId = dataIdFromObject(value);
-                    process.env.NODE_ENV === "production" ? invariant$1(!semanticId || !isGeneratedId(semanticId), 4) : invariant$1(!semanticId || !isGeneratedId(semanticId), 'IDs returned by dataIdFromObject cannot begin with the "$" character.');
+                    process.env.NODE_ENV === "production" ? invariant(!semanticId || !isGeneratedId(semanticId), 4) : invariant(!semanticId || !isGeneratedId(semanticId), 'IDs returned by dataIdFromObject cannot begin with the "$" character.');
                     if (semanticId ||
                         (typeof semanticId === 'number' && semanticId === 0)) {
                         valueDataId = semanticId;
@@ -7111,8 +7091,8 @@ var app = (function () {
                     var hadTypename = escapedId.typename !== undefined;
                     var hasTypename = typename !== undefined;
                     var typenameChanged = hadTypename && hasTypename && escapedId.typename !== typename;
-                    process.env.NODE_ENV === "production" ? invariant$1(!generated || escapedId.generated || typenameChanged, 5) : invariant$1(!generated || escapedId.generated || typenameChanged, "Store error: the application attempted to write an object with no provided id but the store already contains an id of " + escapedId.id + " for this object. The selectionSet that was trying to be written is:\n" + JSON.stringify(field));
-                    process.env.NODE_ENV === "production" ? invariant$1(!hadTypename || hasTypename, 6) : invariant$1(!hadTypename || hasTypename, "Store error: the application attempted to write an object with no provided typename but the store already contains an object with typename of " + escapedId.typename + " for the object of id " + escapedId.id + ". The selectionSet that was trying to be written is:\n" + JSON.stringify(field));
+                    process.env.NODE_ENV === "production" ? invariant(!generated || escapedId.generated || typenameChanged, 5) : invariant(!generated || escapedId.generated || typenameChanged, "Store error: the application attempted to write an object with no provided id but the store already contains an id of " + escapedId.id + " for this object. The selectionSet that was trying to be written is:\n" + JSON.stringify(field));
+                    process.env.NODE_ENV === "production" ? invariant(!hadTypename || hasTypename, 6) : invariant(!hadTypename || hasTypename, "Store error: the application attempted to write an object with no provided typename but the store already contains an object with typename of " + escapedId.typename + " for the object of id " + escapedId.id + ". The selectionSet that was trying to be written is:\n" + JSON.stringify(field));
                     if (escapedId.generated) {
                         if (typenameChanged) {
                             if (!generated) {
@@ -7257,11 +7237,11 @@ var app = (function () {
             _this.silenceBroadcast = false;
             _this.config = __assign(__assign({}, defaultConfig), config);
             if (_this.config.customResolvers) {
-                process.env.NODE_ENV === "production" || invariant$1.warn('customResolvers have been renamed to cacheRedirects. Please update your config as we will be deprecating customResolvers in the next major version.');
+                process.env.NODE_ENV === "production" || invariant.warn('customResolvers have been renamed to cacheRedirects. Please update your config as we will be deprecating customResolvers in the next major version.');
                 _this.config.cacheRedirects = _this.config.customResolvers;
             }
             if (_this.config.cacheResolvers) {
-                process.env.NODE_ENV === "production" || invariant$1.warn('cacheResolvers have been renamed to cacheRedirects. Please update your config as we will be deprecating cacheResolvers in the next major version.');
+                process.env.NODE_ENV === "production" || invariant.warn('cacheResolvers have been renamed to cacheRedirects. Please update your config as we will be deprecating cacheResolvers in the next major version.');
                 _this.config.cacheRedirects = _this.config.cacheResolvers;
             }
             _this.addTypename = !!_this.config.addTypename;
@@ -7517,8 +7497,7 @@ var app = (function () {
       var isSingleLine = value.indexOf('\n') === -1;
       var hasLeadingSpace = value[0] === ' ' || value[0] === '\t';
       var hasTrailingQuote = value[value.length - 1] === '"';
-      var hasTrailingSlash = value[value.length - 1] === '\\';
-      var printAsMultipleLines = !isSingleLine || hasTrailingQuote || hasTrailingSlash || preferMultipleLines;
+      var printAsMultipleLines = !isSingleLine || hasTrailingQuote || preferMultipleLines;
       var result = ''; // Format a multi-line block quote to account for leading space.
 
       if (printAsMultipleLines && !(isSingleLine && hasLeadingSpace)) {
@@ -8177,7 +8156,8 @@ var app = (function () {
     }(ApolloLink));
 
     function devAssert(condition, message) {
-      var booleanCondition = Boolean(condition); // istanbul ignore else (See transformation done in './resources/inlineInvariant.js')
+      var booleanCondition = Boolean(condition);
+      /* istanbul ignore else (see transformation done in './resources/inlineInvariant.js') */
 
       if (!booleanCondition) {
         throw new Error(message);
@@ -8195,6 +8175,7 @@ var app = (function () {
     }
 
     // In ES2015 (or a polyfilled) environment, this will be Symbol.iterator
+    /* istanbul ignore next (See: https://github.com/graphql/graphql-js/issues/2317) */
 
     var SYMBOL_TO_STRING_TAG = // $FlowFixMe Flow doesn't define `Symbol.toStringTag` yet
     typeof Symbol === 'function' ? Symbol.toStringTag : '@@toStringTag';
@@ -8298,13 +8279,13 @@ var app = (function () {
 
     function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-    function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+    function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
 
     function _possibleConstructorReturn(self, call) { if (call && (_typeof$2(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
     function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
     function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
 
@@ -8500,7 +8481,8 @@ var app = (function () {
             configurable: true
           });
           return _possibleConstructorReturn(_this);
-        } // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2317')
+        }
+        /* istanbul ignore next (See: https://github.com/graphql/graphql-js/issues/2317) */
 
 
         if (Error.captureStackTrace) {
@@ -11091,13 +11073,13 @@ var app = (function () {
             if (config) {
                 var diff = Object.keys(config).filter(function (key) { return PRESET_CONFIG_KEYS.indexOf(key) === -1; });
                 if (diff.length > 0) {
-                    process.env.NODE_ENV === "production" || invariant$1.warn('ApolloBoost was initialized with unsupported options: ' +
+                    process.env.NODE_ENV === "production" || invariant.warn('ApolloBoost was initialized with unsupported options: ' +
                         ("" + diff.join(' ')));
                 }
             }
             var request = config.request, uri = config.uri, credentials = config.credentials, headers = config.headers, fetch = config.fetch, fetchOptions = config.fetchOptions, clientState = config.clientState, cacheRedirects = config.cacheRedirects, errorCallback = config.onError, name = config.name, version = config.version, resolvers = config.resolvers, typeDefs = config.typeDefs, fragmentMatcher = config.fragmentMatcher;
             var cache = config.cache;
-            process.env.NODE_ENV === "production" ? invariant$1(!cache || !cacheRedirects, 1) : invariant$1(!cache || !cacheRedirects, 'Incompatible cache configuration. When not providing `cache`, ' +
+            process.env.NODE_ENV === "production" ? invariant(!cache || !cacheRedirects, 1) : invariant(!cache || !cacheRedirects, 'Incompatible cache configuration. When not providing `cache`, ' +
                 'configure the provided instance with `cacheRedirects` instead.');
             if (!cache) {
                 cache = cacheRedirects
@@ -11111,12 +11093,12 @@ var app = (function () {
                     if (graphQLErrors) {
                         graphQLErrors.forEach(function (_a) {
                             var message = _a.message, locations = _a.locations, path = _a.path;
-                            return process.env.NODE_ENV === "production" || invariant$1.warn("[GraphQL error]: Message: " + message + ", Location: " +
+                            return process.env.NODE_ENV === "production" || invariant.warn("[GraphQL error]: Message: " + message + ", Location: " +
                                 (locations + ", Path: " + path));
                         });
                     }
                     if (networkError) {
-                        process.env.NODE_ENV === "production" || invariant$1.warn("[Network error]: " + networkError);
+                        process.env.NODE_ENV === "production" || invariant.warn("[Network error]: " + networkError);
                     }
                 });
             var requestHandler = request
