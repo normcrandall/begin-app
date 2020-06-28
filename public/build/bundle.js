@@ -33012,8 +33012,8 @@ var app = (function () {
         .substr(0, time.length - 2)
         .split(":")
         .map(Number);
-      if (time?.toLowerCase().includes("pm") && hours !== 12) hours += 12;
-      if (time?.toLowerCase().includes("am") && hours === 12) hours -= 12;
+      if (time.toLowerCase().includes("pm") && hours !== 12) hours += 12;
+      if (time.toLowerCase().includes("am") && hours === 12) hours -= 12;
       console.log("hours", hours);
       return 1000 /*ms*/ * 60 /*s*/ * (hours * 60 + minutes);
     };
@@ -33340,9 +33340,9 @@ var app = (function () {
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 101, 16, 3071);
-    			add_location(div1, file$a, 104, 16, 3190);
-    			add_location(div2, file$a, 100, 14, 3049);
+    			add_location(div0, file$a, 101, 16, 2979);
+    			add_location(div1, file$a, 104, 16, 3098);
+    			add_location(div2, file$a, 100, 14, 2957);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33383,7 +33383,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*hour*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$a, 114, 18, 3531);
+    			add_location(option, file$a, 114, 18, 3439);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33419,7 +33419,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*minute*/ ctx[27];
     			option.value = option.__value;
-    			add_location(option, file$a, 124, 18, 3927);
+    			add_location(option, file$a, 124, 18, 3835);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33455,7 +33455,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*value*/ ctx[24];
     			option.value = option.__value;
-    			add_location(option, file$a, 132, 18, 4255);
+    			add_location(option, file$a, 132, 18, 4163);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33496,9 +33496,9 @@ var app = (function () {
     			div1 = element("div");
     			attr_dev(div0, "class", "calInput mr-4");
     			attr_dev(div0, "tabindex", div0_tabindex_value = 0);
-    			add_location(div0, file$a, 151, 16, 4752);
-    			add_location(div1, file$a, 152, 16, 4833);
-    			add_location(div2, file$a, 150, 14, 4730);
+    			add_location(div0, file$a, 151, 16, 4660);
+    			add_location(div1, file$a, 152, 16, 4741);
+    			add_location(div2, file$a, 150, 14, 4638);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -33539,7 +33539,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*hour*/ ctx[30];
     			option.value = option.__value;
-    			add_location(option, file$a, 162, 18, 5172);
+    			add_location(option, file$a, 162, 18, 5080);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33575,7 +33575,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*minute*/ ctx[27];
     			option.value = option.__value;
-    			add_location(option, file$a, 172, 18, 5566);
+    			add_location(option, file$a, 172, 18, 5474);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33611,7 +33611,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*value*/ ctx[24];
     			option.value = option.__value;
-    			add_location(option, file$a, 180, 18, 5892);
+    			add_location(option, file$a, 180, 18, 5800);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -33853,57 +33853,57 @@ var app = (function () {
     			}
 
     			attr_dev(div1, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div1, file$a, 72, 6, 2182);
+    			add_location(div1, file$a, 72, 6, 2090);
     			attr_dev(div2, "class", "w-full md:w-1/2 mb-6 md:mb-0");
-    			add_location(div2, file$a, 81, 6, 2437);
+    			add_location(div2, file$a, 81, 6, 2345);
     			attr_dev(label0, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label0, file$a, 93, 10, 2773);
+    			add_location(label0, file$a, 93, 10, 2681);
     			attr_dev(select0, "name", "hours");
     			attr_dev(select0, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].startHour === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[17].call(select0));
-    			add_location(select0, file$a, 109, 14, 3305);
+    			add_location(select0, file$a, 109, 14, 3213);
     			attr_dev(span0, "class", "mr-3");
-    			add_location(span0, file$a, 117, 14, 3630);
+    			add_location(span0, file$a, 117, 14, 3538);
     			attr_dev(select1, "name", "minutes");
     			attr_dev(select1, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
     			if (/*$editEvent*/ ctx[4].startMinute === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[18].call(select1));
-    			add_location(select1, file$a, 118, 14, 3672);
+    			add_location(select1, file$a, 118, 14, 3580);
     			attr_dev(select2, "name", "ampm");
     			attr_dev(select2, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].startAmPm === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[19].call(select2));
-    			add_location(select2, file$a, 127, 14, 4030);
+    			add_location(select2, file$a, 127, 14, 3938);
     			attr_dev(div3, "class", "flex ml-4 calInput");
-    			add_location(div3, file$a, 108, 12, 3258);
+    			add_location(div3, file$a, 108, 12, 3166);
     			attr_dev(div4, "class", "border-gray-300 flex mr-4");
-    			add_location(div4, file$a, 98, 10, 2937);
-    			add_location(div5, file$a, 92, 8, 2757);
+    			add_location(div4, file$a, 98, 10, 2845);
+    			add_location(div5, file$a, 92, 8, 2665);
     			attr_dev(div6, "class", "flex w-full");
-    			add_location(div6, file$a, 91, 6, 2723);
+    			add_location(div6, file$a, 91, 6, 2631);
     			attr_dev(label1, "class", "block uppercase tracking-wide text-gray-700 text-xs font-bold\n            mb-2");
-    			add_location(label1, file$a, 143, 10, 4458);
+    			add_location(label1, file$a, 143, 10, 4366);
     			attr_dev(select3, "name", "hours");
     			attr_dev(select3, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].endHour === void 0) add_render_callback(() => /*select3_change_handler*/ ctx[21].call(select3));
-    			add_location(select3, file$a, 157, 14, 4948);
+    			add_location(select3, file$a, 157, 14, 4856);
     			attr_dev(span1, "class", "mr-3");
-    			add_location(span1, file$a, 165, 14, 5271);
+    			add_location(span1, file$a, 165, 14, 5179);
     			attr_dev(select4, "name", "minutes");
     			attr_dev(select4, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0\n                mr-4");
     			if (/*$editEvent*/ ctx[4].endMinute === void 0) add_render_callback(() => /*select4_change_handler*/ ctx[22].call(select4));
-    			add_location(select4, file$a, 166, 14, 5313);
+    			add_location(select4, file$a, 166, 14, 5221);
     			attr_dev(select5, "name", "ampm");
     			attr_dev(select5, "class", "bg-transparent appearance-none hover:bg-gray-100 border-0");
     			if (/*$editEvent*/ ctx[4].endAmPm === void 0) add_render_callback(() => /*select5_change_handler*/ ctx[23].call(select5));
-    			add_location(select5, file$a, 175, 14, 5669);
+    			add_location(select5, file$a, 175, 14, 5577);
     			attr_dev(div7, "class", "flex ml-4 calInput");
-    			add_location(div7, file$a, 156, 12, 4901);
+    			add_location(div7, file$a, 156, 12, 4809);
     			attr_dev(div8, "class", "border-gray-300 flex mr-4");
-    			add_location(div8, file$a, 148, 10, 4620);
-    			add_location(div9, file$a, 142, 8, 4442);
+    			add_location(div8, file$a, 148, 10, 4528);
+    			add_location(div9, file$a, 142, 8, 4350);
     			attr_dev(div10, "class", "flex w-full");
-    			add_location(div10, file$a, 141, 6, 4408);
+    			add_location(div10, file$a, 141, 6, 4316);
     			attr_dev(div0, "slot", "body");
-    			add_location(div0, file$a, 71, 4, 2158);
+    			add_location(div0, file$a, 71, 4, 2066);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -34274,7 +34274,7 @@ var app = (function () {
     			create_component(outlinebutton1.$$.fragment);
     			attr_dev(div, "slot", "actions");
     			attr_dev(div, "class", "w-full flex justify-end");
-    			add_location(div, file$a, 191, 4, 6055);
+    			add_location(div, file$a, 191, 4, 5963);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -34438,15 +34438,8 @@ var app = (function () {
 
     	const parseDaytime = time => {
     		let [hours, minutes] = time.substr(0, time.length - 2).split(":").map(Number);
-
-    		if ((time === null || time === void 0
-    		? void 0
-    		: time.toLowerCase().includes("pm")) && hours !== 12) hours += 12;
-
-    		if ((time === null || time === void 0
-    		? void 0
-    		: time.toLowerCase().includes("am")) && hours === 12) hours -= 12;
-
+    		if (time.toLowerCase().includes("pm") && hours !== 12) hours += 12;
+    		if (time.toLowerCase().includes("am") && hours === 12) hours -= 12;
     		console.log("hours", hours);
     		return 1000 * 60 * (hours * 60 + minutes); /*ms*/ /*s*/
     	};

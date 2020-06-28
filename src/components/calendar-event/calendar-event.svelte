@@ -36,8 +36,8 @@
       .substr(0, time.length - 2)
       .split(":")
       .map(Number);
-    if (time?.toLowerCase().includes("pm") && hours !== 12) hours += 12;
-    if (time?.toLowerCase().includes("am") && hours === 12) hours -= 12;
+    if (time.toLowerCase().includes("pm") && hours !== 12) hours += 12;
+    if (time.toLowerCase().includes("am") && hours === 12) hours -= 12;
     console.log("hours", hours);
     return 1000 /*ms*/ * 60 /*s*/ * (hours * 60 + minutes);
   };
